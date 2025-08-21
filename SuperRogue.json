@@ -1,0 +1,18 @@
+{
+	"id": "SuperRogue",
+	"name": "SuperRogue",
+	"display_name": "SuperRogue",
+	"author": ["theAstra"],
+	"description": "SuperRogue is a mod designed to add another Rogue-like layer to Balatro",
+	"prefix": "sr",
+	"main_file": "main.lua",
+	"priority": 9999,
+	"badge_colour": "f51bbc",
+	"badge_text_colour": "f8a100",
+	"version": "0.1.0",
+	"git_owner": "the-Astra",
+	"dependencies": [
+		"Steamodded (>=1.0.0~BETA-0820a)",
+		"Lovely (>=0.7.1)"
+	]
+}

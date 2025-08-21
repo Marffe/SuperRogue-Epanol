@@ -1,0 +1,21 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+for k, v in pairs(G.GAME.banned_keys) do
+    if eligible_bosses[k] then eligible_bosses[k] = nil end
+end
+'''
+position = 'after'
+payload = '''
+for k, v in pairs(eligible_bosses) do
+    if G.P_BLINDS[k] and G.P_BLINDS[k].mod and not SuperRogue.active_mod_pool[G.P_BLINDS[k].mod.id] then eligible_bosses[k] = nil end
+end
+'''
+match_indent = true
+times = 1
