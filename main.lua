@@ -118,21 +118,8 @@ G.FUNCS.sr_cycle_update = function(args)
 end
 --#endregion
 
--- Helper function to get a random inactive mod
-function SuperRogue.get_rand_inactive()
-    local inactive_pool = {}
-    for k, v in pairs(SuperRogue.active_mod_pool) do
-        if not v then
-            inactive_pool[#inactive_pool + 1] = k
-        end
-    end
-    if next(inactive_pool) then
-        return pseudorandom_element(inactive_pool, pseudoseed('SRRandom'))
-    else
-        return nil
-    end
-end
 
+--#region Functions 
 -- Global calculate for activating mods whenever a threashold is met
 SuperRogue.calculate = function(self, context)
     if context.ante_change and context.ante_end and SuperRogue_config.trigger_type == 1 then
@@ -149,6 +136,21 @@ SuperRogue.calculate = function(self, context)
             SuperRogue.activate_mod(SuperRogue.get_rand_inactive())
             SuperRogue.iteration_steps = 0
         end
+    end
+end
+
+-- Helper function to get a random inactive mod
+function SuperRogue.get_rand_inactive()
+    local inactive_pool = {}
+    for k, v in pairs(SuperRogue.active_mod_pool) do
+        if not v then
+            inactive_pool[#inactive_pool + 1] = k
+        end
+    end
+    if next(inactive_pool) then
+        return pseudorandom_element(inactive_pool, pseudoseed('SRRandom'))
+    else
+        return nil
     end
 end
 
@@ -177,7 +179,10 @@ function SuperRogue.activate_mod(key)
         }))
     end
 end
+--#endregion
 
+
+--#region Hooks
 -- Prevent specific mod cards from spawning if not active in pool
 local gcp = get_current_pool
 function get_current_pool(_type, _rarity, _legendary, _append)
@@ -228,3 +233,5 @@ Game.start_run = function(self, args)
         SuperRogue.activate_mod(SuperRogue.get_rand_inactive())
     end
 end
+--#endregion
+
