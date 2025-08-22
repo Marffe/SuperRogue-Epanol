@@ -57,6 +57,30 @@ SuperRogue.config_tab = function()
                 }
             },
 
+            -- Activation Threashold Cycle
+            {
+                n = G.UIT.R,
+                config = { align = "cm", padding = 0 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { align = "cm", padding = 0.05 },
+                        nodes = {
+                            create_option_cycle({
+                                label = localize('b_sr_activation_threashold'),
+                                current_option = SuperRogue_config.activation_threashold,
+                                options = {1, 2, 3, 4, 5, 6, 7, 8},
+                                ref_table = SuperRogue_config,
+                                ref_value = 'activation_threashold',
+                                info = localize('sr_activation_threashold_desc'),
+                                colour = G.C.RED,
+                                opt_callback = 'sr_cycle_update'
+                            })
+                        }
+                    },
+                }
+            },
+
         }
     }
 end
@@ -164,15 +188,11 @@ Game.start_run = function(self, args)
     SuperRogue.iteration_steps = 0
 
     for k, v in pairs(SMODS.Mods) do
-        local blacklisted = false
-        for i = 1, #SuperRogue_config.activation_blacklist do
-            if k == SuperRogue_config.activation_blacklist[i] or v.name == "Steamodded" then
-                blacklisted = true
-                break
-            end
-        end
+        local blacklisted = SuperRogue_config.activation_blacklist[k]
         if not blacklisted then
-            if SuperRogue_config.starting_mods[v.id] and v.can_load then
+            if v.id == 'Balatro' then
+                SuperRogue.active_mod_pool[v.id] = true
+            elseif SuperRogue_config.starting_mods[v.id] and v.can_load and not v.disabled then
                 SuperRogue.active_mod_pool[v.id] = true
             else
                 SuperRogue.active_mod_pool[v.id] = false
