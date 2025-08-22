@@ -1,12 +1,12 @@
 return {
     start_with_mod = true,
-    iterator_type = "ante",
+    iterator_type = 1,
     activation_threashold = 1,
-    activation_mode = "random",
+    activation_mode = 1,
     starting_mods = {},
     activation_blacklist = {
         "Lovely",
-        "smods",
+        "SuperRogue",
         "JokerDisplay",
         "TheFamily",
         "Talisman",
@@ -16,6 +16,9 @@ return {
         "foxy",
         "blueprint",
         "Friends of James",
-        "Galdur"
+        "galdur",
+        "CardSleeves",
+        "DebugPlus",
+        "VanillaRemade"
     },
 }
