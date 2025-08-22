@@ -81,6 +81,30 @@ SuperRogue.config_tab = function()
                 }
             },
 
+            -- Activation Mode Cycle
+            {
+                n = G.UIT.R,
+                config = { align = "cm", padding = 0 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { align = "cm", padding = 0.05 },
+                        nodes = {
+                            create_option_cycle({
+                                label = localize('b_sr_activation_mode'),
+                                current_option = SuperRogue_config.activation_mode,
+                                options = localize('sr_activation_mode_options'),
+                                ref_table = SuperRogue_config,
+                                ref_value = 'activation_mode',
+                                info = localize('sr_activation_mode_desc'),
+                                colour = G.C.RED,
+                                opt_callback = 'sr_cycle_update'
+                            })
+                        }
+                    },
+                }
+            },
+
         }
     }
 end
@@ -109,7 +133,7 @@ function SuperRogue.get_rand_inactive()
     end
 end
 
--- Global calculate for activating mods at end of ante
+-- Global calculate for activating mods whenever a threashold is met
 SuperRogue.calculate = function(self, context)
     if context.ante_change and context.ante_end and SuperRogue_config.trigger_type == 1 then
         SuperRogue.iteration_steps = SuperRogue.iteration_steps + 1
