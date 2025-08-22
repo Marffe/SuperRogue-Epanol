@@ -1,6 +1,8 @@
 return {
     start_with_mod = true,
-    ante_activation = 1,
+    iterator_type = "ante",
+    activation_threashold = 1,
+    activation_mode = "random",
     starting_mods = {},
     activation_blacklist = {
         "Lovely",
@@ -12,6 +14,8 @@ return {
         "bettertags",
         "toomanyjokers",
         "foxy",
-        "blueprintmmmmmmmmmmmm"
-    }
+        "blueprint",
+        "Friends of James",
+        "Galdur"
+    },
 }
