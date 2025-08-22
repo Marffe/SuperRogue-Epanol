@@ -10,7 +10,8 @@ return {
             
             sr_activation_mode_desc = {
                 "Choose what method of mod",
-                "activation should be used"
+                "activation should be used",
+                "(WIP; Currently does nothing)"
             },
             sr_activation_threashold_desc = {
                 "Choose how many triggers must",
@@ -18,8 +19,7 @@ return {
             },
             sr_trigger_type_desc = {
                 "Choose what trigger to",
-                "use for mod activation",
-                "(WIP; Currently does nothing)"
+                "use for mod activation"
             },
 
             
