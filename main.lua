@@ -43,12 +43,12 @@ SuperRogue.config_tab = function()
                         config = { align = "cm", padding = 0.05 },
                         nodes = {
                             create_option_cycle({
-                                label = localize('b_sr_iterator_type'),
-                                current_option = SuperRogue_config.iterator_type,
-                                options = localize('sr_iterator_type_options'),
+                                label = localize('b_sr_trigger_type'),
+                                current_option = SuperRogue_config.trigger_type,
+                                options = localize('sr_trigger_type_options'),
                                 ref_table = SuperRogue_config,
-                                ref_value = 'iterator_type',
-                                info = localize('sr_iterator_type_desc'),
+                                ref_value = 'trigger_type',
+                                info = localize('sr_trigger_type_desc'),
                                 colour = G.C.RED,
                                 opt_callback = 'sr_cycle_update'
                             })
@@ -87,7 +87,7 @@ end
 
 -- Global calculate for activating mods at end of ante
 SuperRogue.calculate = function(self, context)
-    if context.ante_change and context.ante_end and SuperRogue_config.iterator_type == 1 then
+    if context.ante_change and context.ante_end and SuperRogue_config.trigger_type == 1 then
         SuperRogue.iteration_steps = SuperRogue.iteration_steps + 1
         if SuperRogue.iteration_steps >= SuperRogue_config.activation_threashold then
             SuperRogue.activate_mod(SuperRogue.get_rand_inactive())
@@ -95,7 +95,7 @@ SuperRogue.calculate = function(self, context)
         end
     end
 
-    if context.end_of_round and not context.repetition and not context.individual and SuperRogue_config.iterator_type == 2 then
+    if context.end_of_round and not context.repetition and not context.individual and SuperRogue_config.trigger_type == 2 then
         SuperRogue.iteration_steps = SuperRogue.iteration_steps + 1
         if SuperRogue.iteration_steps >= SuperRogue_config.activation_threashold then
             SuperRogue.activate_mod(SuperRogue.get_rand_inactive())

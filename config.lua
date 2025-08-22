@@ -1,6 +1,6 @@
 return {
     start_with_mod = true,
-    iterator_type = 1,
+    trigger_type = 1,
     activation_threashold = 1,
     activation_mode = 1,
     starting_mods = {},
