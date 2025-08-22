@@ -1,5 +1,5 @@
 return {
-    start_with_mod = true,
+    start_with_mod = false,
     trigger_type = 1,
     activation_threashold = 1,
     activation_mode = 1,
