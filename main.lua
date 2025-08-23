@@ -147,6 +147,9 @@ function SuperRogue.get_rand_inactive()
         if G.GAME.sr_activation_mode == 2 then
             G.GAME.choice_pool_blacklist[key] = true
         end
+        if not key and G.GAME.sr_activation_mode == 2 then
+            key = pseudorandom_element(G.GAME.choice_pool_blacklist, pseudoseed('SRRandom'))
+        end
         return key
     else
         return nil
@@ -329,22 +332,35 @@ local update_shopref = Game.update_shop
 function Game.update_shop(self, dt)
     update_shopref(self, dt)
     if not (G.GAME.sr_iteration_steps >= G.GAME.sr_activation_threashold) then return end
+
     G.GAME.sr_iteration_steps = 0
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        func = function()
-            if G.STATE_COMPLETE then
-                local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
-                    G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27, G.P_CARDS.empty,
-                    G.P_CENTERS["p_sr_mod_booster"],
-                    { bypass_discovery_center = true, bypass_discovery_ui = true })
-                card.cost = 0
-                G.FUNCS.use_card({ config = { ref_table = card } })
-                card:start_materialize()
-                return true
-            end
+
+    local can_create_booster = false
+    for i = 1, G.GAME.sr_active_mod_pool do
+        if not G.GAME.sr_active_mod_pool[i] then
+            can_create_booster = true
+            break
         end
-    }))
+    end
+
+    if can_create_booster then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            func = function()
+                if G.STATE_COMPLETE then
+                    local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
+                        G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27,
+                        G.P_CARDS.empty,
+                        G.P_CENTERS["p_sr_mod_booster"],
+                        { bypass_discovery_center = true, bypass_discovery_ui = true })
+                    card.cost = 0
+                    G.FUNCS.use_card({ config = { ref_table = card } })
+                    card:start_materialize()
+                    return true
+                end
+            end
+        }))
+    end
 end
 
 --#endregion
