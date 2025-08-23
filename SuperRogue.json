@@ -7,8 +7,8 @@
 	"prefix": "sr",
 	"main_file": "main.lua",
 	"priority": 9999,
-	"badge_colour": "f51bbc",
-	"badge_text_colour": "f8a100",
+	"badge_colour": "d90e00",
+	"badge_text_colour": "#ffad66",
 	"version": "0.3.0",
 	"git_owner": "the-Astra",
 	"dependencies": [

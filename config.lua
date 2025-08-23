@@ -5,7 +5,6 @@ return {
     activation_mode = 1,
     starting_mods = {},
     activation_blacklist = {
-        ["Steamodded"] = true,
         ["Lovely"] = true,
         ["SuperRogue"] = true,
         ["JokerDisplay"] = true,
