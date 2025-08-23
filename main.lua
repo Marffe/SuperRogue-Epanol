@@ -236,6 +236,8 @@ function get_current_pool(_type, _rarity, _legendary, _append)
                 local key = _pool[i]
                 if G.P_TAGS[key] and G.P_TAGS[key].mod and not G.GAME.sr_active_mod_pool[G.P_TAGS[key].mod.id] then
                     _pool[i] = "UNAVAILABLE"
+                else
+                    _pool[i] = key
                 end
             end
         else
@@ -243,6 +245,8 @@ function get_current_pool(_type, _rarity, _legendary, _append)
                 local key = _pool[i]
                 if G.P_CENTERS[key] and G.P_CENTERS[key].mod and not G.GAME.sr_active_mod_pool[G.P_CENTERS[key].mod.id] then
                     _pool[i] = "UNAVAILABLE"
+                else
+                    _pool[i] = key
                 end
             end
         end
