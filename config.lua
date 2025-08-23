@@ -19,6 +19,7 @@ return {
         ["galdur"] = true,
         ["CardSleeves"] = true,
         ["DebugPlus"] = true,
-        ["VanillaRemade"] = true
+        ["VanillaRemade"] = true,
+        ["SlayTheJokers"] = true
     },
 }
