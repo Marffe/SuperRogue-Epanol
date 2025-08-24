@@ -45,7 +45,7 @@ function G.UIDEF.sr_activated_mods()
     local mod_tables = {}
     local mod_table_rows = {}
     for k, v in pairs(G.GAME.sr_active_mod_pool) do
-        if k ~= 'Balatro' and k ~= 'Steamodded' then 
+        if k ~= 'Balatro' and k ~= 'Steamodded' then
             keys_used[k] = G.GAME.sr_active_mod_pool[k]
         end
     end
