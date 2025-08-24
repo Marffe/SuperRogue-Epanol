@@ -113,7 +113,7 @@ function Game.update_shop(self, dt)
     G.GAME.sr_iteration_steps = 0
 
     local can_create_booster = false
-    for i = 1, G.GAME.sr_active_mod_pool do
+    for i = 1, #G.GAME.sr_active_mod_pool do
         if not G.GAME.sr_active_mod_pool[i] then
             can_create_booster = true
             break
