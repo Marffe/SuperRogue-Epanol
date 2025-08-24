@@ -40,7 +40,10 @@ SMODS.Consumable {
         }
     end,
     in_pool = function(self, args)
-        return true, { allow_duplicates = true }
+        if SuperRogue.get_rand_inactive() then
+            return true, { allow_duplicates = true }
+        end
+        return false
     end,
     use = function(self, card, area, copier)
         SuperRogue.activate_mod(card.ability.extra.mod_id)
@@ -78,5 +81,11 @@ SMODS.Booster {
     end,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.config.center.config.choose, card.ability.extra } }
+    end,
+    in_pool = function(self, args)
+        if SuperRogue.get_rand_inactive() then
+            return true
+        end
+        return false
     end
 }
