@@ -51,7 +51,7 @@ Game.init_game_object = function(self)
     ret.sr_activation_threashold = SuperRogue_config.activation_threashold
     ret.sr_activation_mode = SuperRogue_config.activation_mode
     ret.sr_trigger_type = SuperRogue_config.trigger_type
-    ret.choice_pool_blacklist = {}
+    ret.sr_choice_pool_blacklist = {}
 
     return ret
 end
@@ -137,5 +137,15 @@ function Game.update_shop(self, dt)
                 end
             end
         }))
+    end
+end
+
+local cc = Card.click
+function Card:click()
+    cc(self)
+
+    if self.area and self.area.config.type == 'title_2' and self.config.center_key == 'c_sr_mod_cons' then
+        play_sound('button', 1, 0.3)
+        G.FUNCS['openModUI_' .. self.ability.extra.mod_id]()
     end
 end

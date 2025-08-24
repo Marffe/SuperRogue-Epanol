@@ -47,7 +47,7 @@ SMODS.Consumable {
     end,
     use = function(self, card, area, copier)
         SuperRogue.activate_mod(card.ability.extra.mod_id)
-        G.GAME.choice_pool_blacklist = {}
+        G.GAME.sr_choice_pool_blacklist = {}
     end,
     can_use = function(self, card)
         return true

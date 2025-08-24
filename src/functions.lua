@@ -10,7 +10,7 @@ SuperRogue.calculate = function(self, context)
     end
 
     if context.skipping_booster then
-        G.GAME.choice_pool_blacklist = {}
+        G.GAME.sr_choice_pool_blacklist = {}
     end
 end
 
@@ -18,18 +18,18 @@ end
 function SuperRogue.get_rand_inactive()
     local inactive_pool = {}
     for k, v in pairs(G.GAME.sr_active_mod_pool) do
-        if not v and not G.GAME.choice_pool_blacklist[k] then
+        if not v and not G.GAME.sr_choice_pool_blacklist[k] then
             inactive_pool[#inactive_pool + 1] = k
         end
     end
     if next(inactive_pool) then
         local key = pseudorandom_element(inactive_pool, pseudoseed('SRRandom'))
         if G.GAME.sr_activation_mode == 2 then
-            G.GAME.choice_pool_blacklist[key] = key
+            G.GAME.sr_choice_pool_blacklist[key] = key
         end
         return key
-    elseif not next(inactive_pool) and next(G.GAME.choice_pool_blacklist) and G.GAME.sr_activation_mode == 2 then
-        local key = pseudorandom_element(G.GAME.choice_pool_blacklist, pseudoseed('SRRandom'))
+    elseif not next(inactive_pool) and next(G.GAME.sr_choice_pool_blacklist) and G.GAME.sr_activation_mode == 2 then
+        local key = pseudorandom_element(G.GAME.sr_choice_pool_blacklist, pseudoseed('SRRandom'))
         return key
     else
         return nil
