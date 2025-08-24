@@ -182,6 +182,22 @@ function SuperRogue.activate_mod(key)
     end
 end
 
+-- Helper function to set Mod Consumable attributes
+function SuperRogue.set_modcons_vars(card, mod)
+    if not mod then
+        mod = SMODS.Mods[card.ability.extra.mod_id]
+        if not mod then return end
+    end
+    card.children.center.atlas = mod.prefix and G.ASSET_ATLAS[mod.prefix .. '_modicon'] or G.ASSET_ATLAS['modicon'] or
+        G.ASSET_ATLAS['tags']
+    card.children.center:set_sprite_pos({ x = 0, y = 0 })
+end
+
+--#endregion
+
+
+--#region UI
+
 -- Stolen from SMODS
 function wrapText(text, maxChars)
     local wrappedText = { "" }
@@ -219,6 +235,107 @@ function ensureModDescriptions()
         end
     end
     init_localization()
+end
+
+-- Create Run Info Mods tab
+function G.UIDEF.sr_activated_mods()
+    local silent = false
+    local keys_used = {}
+    local mod_areas = {}
+    local mod_tables = {}
+    local mod_table_rows = {}
+    for k, v in pairs(G.GAME.sr_active_mod_pool) do
+        if k ~= 'Balatro' and k ~= 'Steamodded' then 
+            keys_used[k] = G.GAME.sr_active_mod_pool[k]
+        end
+    end
+    for k, v in pairs(keys_used) do
+        if v then
+            if #mod_areas == 0 then
+                mod_areas[#mod_areas + 1] = CardArea(
+                    G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
+                    5.33 * G.CARD_W,
+                    1.07 * G.CARD_H,
+                    { card_limit = 5, type = 'joker', highlight_limit = 0 })
+                table.insert(mod_tables,
+                    {
+                        n = G.UIT.C,
+                        config = { align = "cm", padding = 0, no_fill = true },
+                        nodes = {
+                            { n = G.UIT.O, config = { object = mod_areas[#mod_areas] } }
+                        }
+                    }
+                )
+            elseif #mod_areas == 1 and #mod_areas[1].cards == 5 or #mod_areas == 2 and #mod_areas[2].cards == 5 then
+                table.insert(mod_table_rows,
+                    { n = G.UIT.R, config = { align = "cm", padding = 0, no_fill = true }, nodes = mod_tables }
+                )
+                mod_tables = {}
+                mod_areas[#mod_areas + 1] = CardArea(
+                    G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
+                    5.33 * G.CARD_W,
+                    1.07 * G.CARD_H,
+                    { card_limit = 5, type = 'joker', highlight_limit = 0 })
+                table.insert(mod_tables,
+                    {
+                        n = G.UIT.C,
+                        config = { align = "cm", padding = 0, no_fill = true },
+                        nodes = {
+                            { n = G.UIT.O, config = { object = mod_areas[#mod_areas] } }
+                        }
+                    }
+                )
+            end
+            local center = G.P_CENTERS['c_sr_mod_cons']
+            local card = Card(mod_areas[#mod_areas].T.x + mod_areas[#mod_areas].T.w / 2, mod_areas[#mod_areas].T.y,
+                G.CARD_W, G.CARD_H, nil, center,
+                { bypass_discovery_center = true, bypass_discovery_ui = true, bypass_lock = true })
+            card.ability.extra.mod_id = k
+            SuperRogue.set_modcons_vars(card)
+            card:start_materialize(nil, silent)
+            silent = true
+            mod_areas[#mod_areas]:emplace(card)
+        end
+    end
+    table.insert(mod_table_rows,
+        { n = G.UIT.R, config = { align = "cm", padding = 0, no_fill = true }, nodes = mod_tables }
+    )
+
+
+    local t = silent and {
+            n = G.UIT.ROOT,
+            config = { align = "cm", colour = G.C.CLEAR },
+            nodes = {
+                {
+                    n = G.UIT.R,
+                    config = { align = "cm" },
+                    nodes = {
+                        { n = G.UIT.O, config = { object = DynaText({ string = { localize('ph_sr_mods_activated') }, colours = { G.C.UI.TEXT_LIGHT }, bump = true, scale = 0.6 }) } }
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = { align = "cm", minh = 0.5 },
+                    nodes = {
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = { align = "cm", colour = G.C.BLACK, r = 1, padding = 0.15, emboss = 0.05 },
+                    nodes = {
+                        { n = G.UIT.R, config = { align = "cm" }, nodes = mod_table_rows },
+                    }
+                }
+            }
+        } or
+        {
+            n = G.UIT.ROOT,
+            config = { align = "cm", colour = G.C.CLEAR },
+            nodes = {
+                { n = G.UIT.O, config = { object = DynaText({ string = { localize('ph_sr_no_mods') }, colours = { G.C.UI.TEXT_LIGHT }, bump = true, scale = 0.6 }) } }
+            }
+        }
+    return t
 end
 
 --#endregion
@@ -425,11 +542,9 @@ SMODS.Consumable {
     end,
     set_ability = function(self, card, initial, delay_sprites)
         card.ability.extra.mod_id = SuperRogue.get_rand_inactive()
-
         local mod = SMODS.Mods[card.ability.extra.mod_id]
-        card.children.center.atlas = mod.prefix and G.ASSET_ATLAS[mod.prefix .. '_modicon'] or G.ASSET_ATLAS['modicon'] or
-            G.ASSET_ATLAS['tags']
-        card.children.center:set_sprite_pos({ x = 0, y = 0 })
+
+        SuperRogue.set_modcons_vars(card, mod)
     end
 }
 

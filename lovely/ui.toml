@@ -1,0 +1,23 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+{
+    label = localize('b_vouchers'),
+    tab_definition_function = G.UIDEF.used_vouchers,
+},
+'''
+position = 'after'
+payload = '''
+{
+    label = localize('b_sr_mods'),
+    tab_definition_function = G.UIDEF.sr_activated_mods,
+},
+'''
+match_indent = true
+times = 1

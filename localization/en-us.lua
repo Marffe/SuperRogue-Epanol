@@ -15,11 +15,14 @@ return {
         dictionary = {
             b_sr_activation_mode = 'Mod Activation Mode',
             b_sr_activation_threashold = 'Mod Activation Threashold',
+            b_sr_mods = 'Mods',
             b_sr_start_with_mod = 'Start with a mod being activated',
             b_sr_trigger_type = 'Trigger Type',
             k_mod_consumable = 'Mod',
             k_sr_activation = ' has been activated!',
             k_sr_mod_booster = 'Choose Your Mod',
+            ph_sr_mods_activated = 'Mods activated this run',
+            ph_sr_no_mods = 'No mods activated this run',
 
             
             sr_activation_mode_desc = {
