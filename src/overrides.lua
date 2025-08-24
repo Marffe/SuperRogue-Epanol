@@ -57,9 +57,9 @@ Game.init_game_object = function(self)
 end
 
 -- Setup values on run start
-local start_r = Game.start_run
-Game.start_run = function(self, args)
-    start_r(self, args)
+local atr = Back.apply_to_run
+Back.apply_to_run = function(self)
+    atr(self)
 
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
@@ -74,14 +74,6 @@ Game.start_run = function(self, args)
                         trigger = 'after',
                         func = function()
                             if G.STATE_COMPLETE then
-                                local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
-                                    G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27,
-                                    G.P_CARDS.empty,
-                                    G.P_CENTERS["p_sr_mod_booster"],
-                                    { bypass_discovery_center = true, bypass_discovery_ui = true })
-                                card.cost = 0
-                                G.FUNCS.use_card({ config = { ref_table = card } })
-                                card:start_materialize()
                                 G.E_MANAGER:add_event(Event({
                                     func = function()
                                         if G.blind_select and not G.blind_select.alignment.offset.py then
@@ -91,6 +83,14 @@ Game.start_run = function(self, args)
                                         return true;
                                     end
                                 }))
+                                local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
+                                    G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27,
+                                    G.P_CARDS.empty,
+                                    G.P_CENTERS["p_sr_mod_booster"],
+                                    { bypass_discovery_center = true, bypass_discovery_ui = true })
+                                card.cost = 0
+                                G.FUNCS.use_card({ config = { ref_table = card } })
+                                card:start_materialize()
                                 G.CONTROLLER.locks.use = nil
                                 return true
                             end
