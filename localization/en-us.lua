@@ -18,6 +18,7 @@ return {
             b_sr_mods = 'Mods',
             b_sr_start_with_mod = 'Start with a mod being activated',
             b_sr_trigger_type = 'Trigger Type',
+            b_sr_until_next_mod = ' until next mod: ',
             k_mod_consumable = 'Mod',
             k_sr_activation = ' has been activated!',
             k_sr_mod_booster = 'Choose Your Mod',

@@ -101,6 +101,12 @@ function G.UIDEF.sr_activated_mods()
         { n = G.UIT.R, config = { align = "cm", padding = 0, no_fill = true }, nodes = mod_tables }
     )
 
+    local trigger_string
+    if G.GAME.sr_activation_mode == 1 then
+        trigger_string = localize('k_ante') .. 's'
+    elseif G.GAME.sr_activation_mode == 2 then
+        trigger_string = localize('k_round') .. 's'
+    end
 
     local t = silent and {
             n = G.UIT.ROOT,
@@ -111,6 +117,13 @@ function G.UIDEF.sr_activated_mods()
                     config = { align = "cm" },
                     nodes = {
                         { n = G.UIT.O, config = { object = DynaText({ string = { localize('ph_sr_mods_activated') }, colours = { G.C.UI.TEXT_LIGHT }, bump = true, scale = 0.6 }) } }
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = { align = "cm" },
+                    nodes = {
+                        { n = G.UIT.O, config = { object = DynaText({ string = { trigger_string .. localize('b_sr_until_next_mod') .. G.GAME.sr_activation_threashold - G.GAME.sr_iteration_steps }, colours = { G.C.UI.TEXT_LIGHT }, bump = true, scale = 0.4 }) } }
                     }
                 },
                 {
@@ -132,7 +145,20 @@ function G.UIDEF.sr_activated_mods()
             n = G.UIT.ROOT,
             config = { align = "cm", colour = G.C.CLEAR },
             nodes = {
-                { n = G.UIT.O, config = { object = DynaText({ string = { localize('ph_sr_no_mods') }, colours = { G.C.UI.TEXT_LIGHT }, bump = true, scale = 0.6 }) } }
+                {
+                    n = G.UIT.R,
+                    config = { align = "cm" },
+                    nodes = {
+                        { n = G.UIT.O, config = { object = DynaText({ string = { localize('ph_sr_no_mods') }, colours = { G.C.UI.TEXT_LIGHT }, bump = true, scale = 0.6 }) } }
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = { align = "cm" },
+                    nodes = {
+                        { n = G.UIT.O, config = { object = DynaText({ string = { trigger_string .. localize('b_sr_until_next_mod') .. G.GAME.sr_activation_threashold - G.GAME.sr_iteration_steps }, colours = { G.C.UI.TEXT_LIGHT }, bump = true, scale = 0.4 }) } }
+                    }
+                },
             }
         }
     return t
