@@ -56,7 +56,7 @@ function G.UIDEF.sr_activated_mods()
                     G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
                     5.33 * G.CARD_W,
                     1.07 * G.CARD_H,
-                    { card_limit = 5, type = 'joker', highlight_limit = 0 })
+                    { card_limit = 10, type = 'title', highlight_limit = 0 })
                 table.insert(mod_tables,
                     {
                         n = G.UIT.C,
@@ -75,7 +75,7 @@ function G.UIDEF.sr_activated_mods()
                     G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
                     5.33 * G.CARD_W,
                     1.07 * G.CARD_H,
-                    { card_limit = 5, type = 'joker', highlight_limit = 0 })
+                    { card_limit = 10, type = 'title', highlight_limit = 0 })
                 table.insert(mod_tables,
                     {
                         n = G.UIT.C,
