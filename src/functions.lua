@@ -25,7 +25,7 @@ function SuperRogue.get_rand_inactive()
     if next(inactive_pool) then
         local key = pseudorandom_element(inactive_pool, pseudoseed('SRRandom'))
         if G.GAME.sr_activation_mode == 2 then
-            G.GAME.choice_pool_blacklist[key] = true
+            G.GAME.choice_pool_blacklist[key] = key
         end
         return key
     elseif not next(inactive_pool) and next(G.GAME.choice_pool_blacklist) and G.GAME.sr_activation_mode == 2 then
