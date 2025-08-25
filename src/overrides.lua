@@ -65,7 +65,7 @@ Back.apply_to_run = function(self)
         trigger = 'after',
         func = function()
             -- Start run by activating mod if option is active
-            if SuperRogue_config.start_with_mod then
+            if SuperRogue_config.start_with_mod and SuperRogue.get_rand_inactive() then
                 if G.GAME.sr_activation_mode == 1 then
                     SuperRogue.activate_mod(SuperRogue.get_rand_inactive())
                 else
