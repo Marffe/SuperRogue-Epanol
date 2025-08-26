@@ -45,7 +45,7 @@ function G.UIDEF.sr_activated_mods()
     local mod_tables = {}
     local mod_table_rows = {}
     for k, v in pairs(G.GAME.sr_active_mod_pool) do
-        if k ~= 'Balatro' and k ~= 'Steamodded' then
+        if not SuperRogue_config.core_mods[k] then
             keys_used[k] = G.GAME.sr_active_mod_pool[k]
         end
     end
@@ -55,8 +55,8 @@ function G.UIDEF.sr_activated_mods()
                 mod_areas[#mod_areas + 1] = CardArea(
                     G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
                     5.33 * G.CARD_W,
-                    1.07 * G.CARD_H,
-                    { card_limit = 10, type = 'title_2', highlight_limit = 0 })
+                    0.53 * G.CARD_H,
+                    { card_limit = 7, type = 'title_2', highlight_limit = 0 })
                 table.insert(mod_tables,
                     {
                         n = G.UIT.C,
@@ -66,7 +66,7 @@ function G.UIDEF.sr_activated_mods()
                         }
                     }
                 )
-            elseif #mod_areas == 1 and #mod_areas[1].cards == 5 or #mod_areas == 2 and #mod_areas[2].cards == 5 then
+            elseif #mod_areas >= 1 and #mod_areas[#mod_areas].cards == 7 then
                 table.insert(mod_table_rows,
                     { n = G.UIT.R, config = { align = "cm", padding = 0, no_fill = true }, nodes = mod_tables }
                 )
@@ -74,8 +74,8 @@ function G.UIDEF.sr_activated_mods()
                 mod_areas[#mod_areas + 1] = CardArea(
                     G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
                     5.33 * G.CARD_W,
-                    1.07 * G.CARD_H,
-                    { card_limit = 10, type = 'title_2', highlight_limit = 0 })
+                    0.53 * G.CARD_H,
+                    { card_limit = 7, type = 'title_2', highlight_limit = 0 })
                 table.insert(mod_tables,
                     {
                         n = G.UIT.C,
@@ -91,6 +91,7 @@ function G.UIDEF.sr_activated_mods()
                 G.CARD_W, G.CARD_H, nil, center,
                 { bypass_discovery_center = true, bypass_discovery_ui = true, bypass_lock = true })
             card.ability.extra.mod_id = k
+            card.ability.extra.run_info_obj = true
             SuperRogue.set_modcons_vars(card)
             card:start_materialize(nil, silent)
             silent = true
@@ -149,7 +150,7 @@ function G.UIDEF.sr_activated_mods()
                     n = G.UIT.R,
                     config = { align = "cm" },
                     nodes = {
-                        { n = G.UIT.O, config = { object = DynaText({ string = { localize('ph_sr_no_mods') }, colours = { G.C.UI.TEXT_LIGHT }, bump = true, scale = 0.6 }) } }
+                        { n = G.UIT.O, config = { object = DynaText({ string = { localize('ph_sr_no_mods_run') }, colours = { G.C.UI.TEXT_LIGHT }, bump = true, scale = 0.6 }) } }
                     }
                 },
                 {

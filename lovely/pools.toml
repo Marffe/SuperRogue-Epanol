@@ -3,6 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
+# Prevent bosses from disabled mods from spawning
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -20,6 +21,7 @@ end
 match_indent = true
 times = 1
 
+# Prevent packs from disabled mods from spawning
 [[patches]]
 [patches.pattern]
 target = '''=[SMODS _ "src/overrides.lua"]'''

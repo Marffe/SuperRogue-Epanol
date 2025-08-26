@@ -3,6 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
+# Add Mods tab to run info tabs
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
@@ -18,6 +19,20 @@ payload = '''
     label = localize('b_sr_mods'),
     tab_definition_function = G.UIDEF.sr_activated_mods,
 },
+'''
+match_indent = true
+times = 1
+
+# Prevent Debuff loc_vars override
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+elseif self.debuff then
+'''
+position = 'at'
+payload = '''
+elseif self.debuff and self.config.center_key ~= 'c_sr_mod_cons' then
 '''
 match_indent = true
 times = 1

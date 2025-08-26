@@ -4,22 +4,11 @@ return {
     activation_threashold = 1,
     activation_mode = 1,
     starting_mods = {},
-    activation_blacklist = {
+    activation_blacklist = {},
+    core_mods = { -- DO NOT TOUCH THIS UNLESS YOU ABSOLUTELY KNOW WHAT YOU ARE DOING
+        ["Balatro"] = true,
         ["Lovely"] = true,
         ["SuperRogue"] = true,
-        ["JokerDisplay"] = true,
-        ["TheFamily"] = true,
-        ["Talisman"] = true,
-        ["Handy"] = true,
-        ["bettertags"] = true,
-        ["toomanyjokers"] = true,
-        ["foxy"] = true,
-        ["blueprint"] = true,
-        ["Friends of James"] = true,
-        ["galdur"] = true,
-        ["CardSleeves"] = true,
-        ["DebugPlus"] = true,
-        ["VanillaRemade"] = true,
-        ["SlayTheJokers"] = true
-    },
+        ["Steamodded"] = true,
+    }
 }

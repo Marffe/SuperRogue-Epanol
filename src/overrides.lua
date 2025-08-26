@@ -37,7 +37,7 @@ Game.init_game_object = function(self)
     for k, v in pairs(SMODS.Mods) do
         local blacklisted = SuperRogue_config.activation_blacklist[k]
         if not blacklisted and v then
-            if v.id == 'Balatro' or v.id == 'Steamodded' then
+            if SuperRogue_config.core_mods[v.id] then
                 ret.sr_active_mod_pool[v.id] = true
             elseif SuperRogue_config.starting_mods[v.id] and v.can_load and not v.disabled then
                 ret.sr_active_mod_pool[v.id] = true
@@ -144,8 +144,34 @@ local cc = Card.click
 function Card:click()
     cc(self)
 
-    if self.area and self.area.config.type == 'title_2' and self.config.center_key == 'c_sr_mod_cons' then
-        play_sound('button', 1, 0.3)
-        G.FUNCS['openModUI_' .. self.ability.extra.mod_id]()
+    if self.config.center_key == 'c_sr_mod_cons' then
+        if self.ability.extra.run_info_obj then
+            play_sound('button', 1, 0.3)
+            G.FUNCS['openModUI_' .. self.ability.extra.mod_id]()
+        elseif self.ability.extra.blacklist_obj then
+            play_sound('button', 1, 0.3)
+            if SuperRogue_config.activation_blacklist[self.ability.extra.mod_id] then
+                SuperRogue_config.activation_blacklist[self.ability.extra.mod_id] = nil
+                self.debuff = false
+            else
+                SuperRogue_config.activation_blacklist[self.ability.extra.mod_id] = true
+                self.debuff = true
+                if SuperRogue_config.starting_mods[self.ability.extra.mod_id] then
+                    SuperRogue_config.starting_mods[self.ability.extra.mod_id] = nil
+                end
+            end
+        elseif self.ability.extra.starter_obj then
+            play_sound('button', 1, 0.3)
+            if SuperRogue_config.starting_mods[self.ability.extra.mod_id] then
+                SuperRogue_config.starting_mods[self.ability.extra.mod_id] = nil
+                self.debuff = true
+            else
+                SuperRogue_config.starting_mods[self.ability.extra.mod_id] = true
+                self.debuff = false
+                if SuperRogue_config.activation_blacklist[self.ability.extra.mod_id] then
+                    SuperRogue_config.activation_blacklist[self.ability.extra.mod_id] = nil
+                end
+            end
+        end
     end
 end
