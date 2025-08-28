@@ -25,7 +25,7 @@ function get_current_pool(_type, _rarity, _legendary, _append)
         end
     end
 
-    return _pool, _pool_key..(not _legendary and G.GAME.round_resets.ante or '')
+    return _pool, _pool_key .. (not _legendary and G.GAME.round_resets.ante or '')
 end
 
 local igo = Game.init_game_object
@@ -65,7 +65,7 @@ Back.apply_to_run = function(self)
         trigger = 'after',
         func = function()
             -- Start run by activating mod if option is active
-            if SuperRogue_config.start_with_mod and SuperRogue.get_rand_inactive() then
+            if SuperRogue_config.start_with_mod and SuperRogue.get_total_inactive() > 0 then
                 if G.GAME.sr_activation_mode == 1 then
                     SuperRogue.activate_mod(SuperRogue.get_rand_inactive())
                 else
@@ -85,7 +85,8 @@ Back.apply_to_run = function(self)
                                         end
                                     }))
                                     local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
-                                        G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27,
+                                        G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27,
+                                        G.CARD_H * 1.27,
                                         G.P_CARDS.empty,
                                         G.P_CENTERS["p_sr_mod_booster"],
                                         { bypass_discovery_center = true, bypass_discovery_ui = true })
@@ -112,31 +113,29 @@ end
 local update_shopref = Game.update_shop
 function Game.update_shop(self, dt)
     update_shopref(self, dt)
-    if not (G.GAME.sr_iteration_steps >= G.GAME.sr_activation_threashold) and G.GAME.sr_activation_mode ~= 2 then return end
+    if (G.GAME.sr_iteration_steps >= G.GAME.sr_activation_threashold) and G.GAME.sr_activation_mode == 2 then
+        G.GAME.sr_iteration_steps = 0
 
-    G.GAME.sr_iteration_steps = 0
-
-    local inactive_mods = SuperRogue.get_total_inactive()
-
-    if inactive_mods > 1 then
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            func = function()
-                if G.STATE_COMPLETE then
-                    local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
-                        G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27,
-                        G.P_CARDS.empty,
-                        G.P_CENTERS["p_sr_mod_booster"],
-                        { bypass_discovery_center = true, bypass_discovery_ui = true })
-                    card.cost = 0
-                    G.FUNCS.use_card({ config = { ref_table = card } })
-                    card:start_materialize()
-                    return true
+        if SuperRogue.get_total_inactive() > 1 then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    if G.STATE_COMPLETE then
+                        local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
+                            G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27,
+                            G.P_CARDS.empty,
+                            G.P_CENTERS["p_sr_mod_booster"],
+                            { bypass_discovery_center = true, bypass_discovery_ui = true })
+                        card.cost = 0
+                        G.FUNCS.use_card({ config = { ref_table = card } })
+                        card:start_materialize()
+                        return true
+                    end
                 end
-            end
-        }))
-    elseif inactive_mods == 1 then
-        SuperRogue.activate_mod(SuperRogue.get_rand_inactive())
+            }))
+        else
+            SuperRogue.activate_mod(SuperRogue.get_rand_inactive())
+        end
     end
 end
 

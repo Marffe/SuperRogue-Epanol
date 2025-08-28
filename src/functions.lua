@@ -74,7 +74,7 @@ end
 function SuperRogue.get_total_inactive()
     local inactive_mods = 0
     for k, v in pairs(G.GAME.sr_active_mod_pool) do
-        if v then
+        if not v then
             inactive_mods = inactive_mods + 1
         end
     end
