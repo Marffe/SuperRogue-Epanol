@@ -20,7 +20,8 @@ return {
             b_sr_start_with_mod = 'Start with a mod being activated',
             b_sr_starting_mods = 'Starting Mods',
             b_sr_trigger_type = 'Trigger Type',
-            b_sr_until_next_mod = ' until next mod: ',
+            b_sr_antes_until_next_mod = 'Antes until next mod: ',
+            b_sr_rounds_until_next_mod = 'Rounds until next mod: ',
 
             k_mod_consumable = 'Mod',
             k_sr_activation = ' has been activated!',
@@ -32,6 +33,7 @@ return {
             ph_sr_mods_blacklist = 'Mod Blacklist',
             ph_sr_mods_starting = 'Mods Activated at Start',
             ph_sr_no_mods_available = 'No mods available to use with SuperRogue',
+            ph_sr_no_mods_left = 'No mods left to activate',
             ph_sr_no_mods_run = 'No mods activated this run',
 
             
