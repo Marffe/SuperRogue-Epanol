@@ -34,3 +34,34 @@ if v.mod and not G.GAME.sr_active_mod_pool[v.mod.id] then add = false end
 '''
 match_indent = true
 times = 1
+
+# Prevent shop from attempting to generate cards from unavailable pools
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+total_rate = total_rate + G.GAME[v:lower()..'_rate']
+'''
+position = 'at'
+payload = '''
+if SuperRogue.is_pool_available(v) then
+    total_rate = total_rate + G.GAME[v:lower()..'_rate']
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+table.insert(rates, { type = v, val = G.GAME[v:lower()..'_rate'] })
+'''
+position = 'at'
+payload = '''
+if SuperRogue.is_pool_available(v) then
+    table.insert(rates, { type = v, val = G.GAME[v:lower()..'_rate'] })
+end
+'''
+match_indent = true
+times = 1

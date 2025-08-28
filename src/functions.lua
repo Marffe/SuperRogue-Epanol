@@ -80,3 +80,15 @@ function SuperRogue.get_total_inactive()
     end
     return inactive_mods
 end
+
+--Helper function to check if anm object pool has any available objects
+function SuperRogue.is_pool_available(_type)
+    local available_type = false
+    local _type_pool = get_current_pool(_type)
+    for i = 1, #_type_pool do
+        if _type_pool[i] ~= 'UNAVAILABLE' then
+            available_type = true
+        end
+    end
+    return available_type
+end

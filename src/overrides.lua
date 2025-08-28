@@ -25,7 +25,7 @@ function get_current_pool(_type, _rarity, _legendary, _append)
         end
     end
 
-    return _pool, _pool_key
+    return _pool, _pool_key..(not _legendary and G.GAME.round_resets.ante or '')
 end
 
 local igo = Game.init_game_object
