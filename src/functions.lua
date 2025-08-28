@@ -28,9 +28,6 @@ function SuperRogue.get_rand_inactive()
             G.GAME.sr_choice_pool_blacklist[key] = key
         end
         return key
-    elseif not next(inactive_pool) and next(G.GAME.sr_choice_pool_blacklist) and G.GAME.sr_activation_mode == 2 then
-        local key = pseudorandom_element(G.GAME.sr_choice_pool_blacklist, pseudoseed('SRRandom'))
-        return key
     else
         return nil
     end
@@ -71,4 +68,15 @@ function SuperRogue.set_modcons_vars(card, mod)
     card.children.center.atlas = mod.prefix and G.ASSET_ATLAS[mod.prefix .. '_modicon'] or G.ASSET_ATLAS['modicon'] or
         G.ASSET_ATLAS['tags']
     card.children.center:set_sprite_pos({ x = 0, y = 0 })
+end
+
+--Helper function to get number of inactive mods
+function SuperRogue.get_total_inactive()
+    local inactive_mods = 0
+    for k, v in pairs(G.GAME.sr_active_mod_pool) do
+        if v then
+            inactive_mods = inactive_mods + 1
+        end
+    end
+    return inactive_mods
 end

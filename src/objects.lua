@@ -40,7 +40,7 @@ SMODS.Consumable {
         }
     end,
     in_pool = function(self, args)
-        if SuperRogue.get_rand_inactive() then
+        if SuperRogue.get_total_inactive() > 0 then
             return true, { allow_duplicates = true }
         end
         return false
@@ -83,7 +83,7 @@ SMODS.Booster {
         return { vars = { card.config.center.config.choose, card.ability.extra } }
     end,
     in_pool = function(self, args)
-        if SuperRogue.get_rand_inactive() then
+        if SuperRogue.get_total_inactive() > 1 then
             return true
         end
         return false
