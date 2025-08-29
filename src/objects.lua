@@ -83,9 +83,6 @@ SMODS.Booster {
         return { vars = { card.config.center.config.choose, card.ability.extra } }
     end,
     in_pool = function(self, args)
-        if SuperRogue.get_total_inactive() > 1 then
-            return true
-        end
         return false
     end
 }
