@@ -3,7 +3,41 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Prevent bosses from disabled mods from spawning
+# Fix add_to_pool hook not working
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if v.in_pool and type(v.in_pool) == 'function' then
+    add = in_pool and (add or pool_opts.override_base_checks)
+end
+'''
+position = 'at'
+payload = '''
+add = in_pool and (add or pool_opts.override_base_checks)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/overrides.lua"]'''
+pattern = '''
+if v.in_pool and type(v.in_pool) == 'function' then
+	local res, pool_opts = SMODS.add_to_pool(v)
+	pool_opts = pool_opts or {}
+	add = res and (add or pool_opts.override_base_checks)
+end
+'''
+position = 'at'
+payload = '''
+local res, pool_opts = SMODS.add_to_pool(v)
+pool_opts = pool_opts or {}
+add = res and (add or pool_opts.override_base_checks)
+'''
+match_indent = true
+times = 1
+
+# Prevent boss blinds from disabled mods from spawning (Weirder than the other ones for some reason)
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -17,20 +51,6 @@ payload = '''
 for k, v in pairs(eligible_bosses) do
     if G.P_BLINDS[k] and G.P_BLINDS[k].mod and not G.GAME.sr_active_mod_pool[G.P_BLINDS[k].mod.id] then eligible_bosses[k] = nil end
 end
-'''
-match_indent = true
-times = 1
-
-# Prevent packs from disabled mods from spawning
-[[patches]]
-[patches.pattern]
-target = '''=[SMODS _ "src/overrides.lua"]'''
-pattern = '''
-if add and not G.GAME.banned_keys[v.key] then cume = cume + (v.current_weight or 1); temp_in_pool[v.key] = true end
-'''
-position = 'before'
-payload = '''
-if v.mod and not G.GAME.sr_active_mod_pool[v.mod.id] then add = false end
 '''
 match_indent = true
 times = 1
@@ -61,6 +81,21 @@ position = 'at'
 payload = '''
 if SuperRogue.is_pool_available(v) then
     table.insert(rates, { type = v, val = G.GAME[v:lower()..'_rate'] })
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+_pool[#_pool+1] = SMODS.ObjectTypes[_type].default
+'''
+position = 'at'
+payload = '''
+if G.GAME.sr_active_mod_pool[SMODS.ObjectTypes[_type].mod.id] then
+    _pool[#_pool+1] = SMODS.ObjectTypes[_type].default
 end
 '''
 match_indent = true

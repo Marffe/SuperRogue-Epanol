@@ -1,33 +1,13 @@
 -- Prevent specific mod cards from spawning if not active in pool
-local gcp = get_current_pool
-function get_current_pool(_type, _rarity, _legendary, _append)
-    local _pool, _pool_key = gcp(_type, _rarity, _legendary, _append)
-
-    if G.STAGE == G.STAGES.RUN then
-        if _type == 'Tag' then
-            for i = 1, #_pool do
-                local key = _pool[i]
-                if G.P_TAGS[key] and G.P_TAGS[key].mod and not G.GAME.sr_active_mod_pool[G.P_TAGS[key].mod.id] then
-                    _pool[i] = "UNAVAILABLE"
-                else
-                    _pool[i] = key
-                end
-            end
-        else
-            for i = 1, #_pool do
-                local key = _pool[i]
-                if G.P_CENTERS[key] and G.P_CENTERS[key].mod and not G.GAME.sr_active_mod_pool[G.P_CENTERS[key].mod.id] then
-                    _pool[i] = "UNAVAILABLE"
-                else
-                    _pool[i] = key
-                end
-            end
-        end
+local satp = SMODS.add_to_pool
+function SMODS.add_to_pool(prototype_obj, args)
+    if prototype_obj.mod and not G.GAME.sr_active_mod_pool[prototype_obj.mod.id] then
+        return false
     end
-
-    return _pool, _pool_key .. (not _legendary and G.GAME.round_resets.ante or '')
+    return satp(prototype_obj, args)
 end
 
+-- SuperRogue game objects
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
     local ret = igo(self)

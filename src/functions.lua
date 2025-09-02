@@ -88,6 +88,7 @@ function SuperRogue.is_pool_available(_type)
     for i = 1, #_type_pool do
         if _type_pool[i] ~= 'UNAVAILABLE' then
             available_type = true
+            break
         end
     end
     return available_type
