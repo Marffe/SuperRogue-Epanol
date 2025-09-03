@@ -26,6 +26,7 @@ return {
             k_mod_consumable = 'Mod',
             k_sr_activation = ' has been activated!',
             k_sr_mod_booster = 'Choose Your Mod',
+            k_sr_mod_not_active_ex = 'Mod Not Active!',
 
             ph_sr_crossed_blacklist = '(Crossed out mods will not appear in run)',
             ph_sr_crossed_starting = '(Crossed out mods will not be activated at start)',

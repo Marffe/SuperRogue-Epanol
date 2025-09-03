@@ -7,7 +7,7 @@ function SMODS.add_to_pool(prototype_obj, args)
     return satp(prototype_obj, args)
 end
 
--- SuperRogue game objects
+-- Init SuperRogue game objects
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
     local ret = igo(self)
@@ -19,6 +19,7 @@ Game.init_game_object = function(self)
         if not blacklisted and v then
             if SuperRogue_config.core_mods[v.id] then
                 ret.sr_active_mod_pool[v.id] = true
+                sendDebugMessage('Added mod with id ' .. v.id .. ' to pool via core check')
             elseif SuperRogue_config.starting_mods[v.id] and v.can_load and not v.disabled then
                 ret.sr_active_mod_pool[v.id] = true
             elseif v.can_load and not v.disabled then
@@ -119,6 +120,7 @@ function Game.update_shop(self, dt)
     end
 end
 
+-- Change mod consumable behavior in run info ui
 local cc = Card.click
 function Card:click()
     cc(self)
@@ -152,5 +154,28 @@ function Card:click()
                 end
             end
         end
+    end
+end
+
+-- Prevent packs from inactive mods from opening
+local gfuc = G.FUNCS.use_card
+function G.FUNCS.use_card(e, mute, nosave)
+    local obj = e.config.ref_table
+    if obj.ability.set == 'Booster' and obj.config.center.mod and not G.GAME.sr_active_mod_pool[obj.config.center.mod.id] then
+        SMODS.calculate_effect(
+            {
+                message = localize('k_sr_mod_not_active_ex'),
+                colour = G.C.FILTER,
+                sound = 'tarot2'
+            }, obj
+        )
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                obj:start_dissolve()
+                return true;
+            end
+        }))
+    else
+        gfuc(e, mute, nosave)
     end
 end
