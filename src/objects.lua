@@ -60,17 +60,26 @@ SMODS.Consumable {
     end
 }
 
+SMODS.Atlas {
+    key = 'Boosters',
+    path = 'Boosters.png',
+    px = 71,
+    py = 95
+}
+
 SMODS.Booster {
     key = 'mod_booster',
     kind = 'Mod_Consumable',
     group_key = 'k_sr_mod_booster',
+    atlas = 'Boosters',
+    pos = { x = 0, y = 0 },
+    pixel_size = { w = 71, h = 77},
     config = {
         extra = 2,
         choose = 1
     },
     cost = 0,
     discovered = true,
-    no_collection = true,
     weight = 0.0,
     create_card = function(self, card)
         return SMODS.create_card({ area = G.pack_cards, key = 'c_sr_mod_cons', key_append = "sr_modpack", no_edition = true, skip_materialize = true })
