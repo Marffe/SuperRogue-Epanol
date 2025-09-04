@@ -1,5 +1,6 @@
 return {
     start_with_mod = false,
+    boosters_in_shop = false,
     trigger_type = 1,
     activation_threashold = 1,
     activation_mode = 1,

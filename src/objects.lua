@@ -78,9 +78,9 @@ SMODS.Booster {
         extra = 2,
         choose = 1
     },
-    cost = 0,
+    cost = 15,
     discovered = true,
-    weight = 0.0,
+    weight = 0.6,
     create_card = function(self, card)
         return SMODS.create_card({ area = G.pack_cards, key = 'c_sr_mod_cons', key_append = "sr_modpack", no_edition = true, skip_materialize = true })
     end,
@@ -92,6 +92,9 @@ SMODS.Booster {
         return { vars = { card.config.center.config.choose, card.ability.extra } }
     end,
     in_pool = function(self, args)
+        if G.GAME.sr_boosters_in_shop and SuperRogue.get_total_inactive() > 1 then
+            return true
+        end
         return false
     end
 }

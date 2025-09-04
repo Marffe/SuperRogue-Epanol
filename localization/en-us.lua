@@ -16,6 +16,7 @@ return {
             b_sr_activation_mode = 'Mod Activation Mode',
             b_sr_activation_threashold = 'Trigger Count',
             b_sr_blacklist = 'Blacklist',
+            b_sr_boosters_in_shop = 'Allow Mod Packs to appear in shops',
             b_sr_mods = 'Mods',
             b_sr_start_with_mod = 'Start with a mod being activated',
             b_sr_starting_mods = 'Starting Mods',

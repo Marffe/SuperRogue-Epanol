@@ -19,7 +19,6 @@ Game.init_game_object = function(self)
         if not blacklisted and v then
             if SuperRogue_config.core_mods[v.id] then
                 ret.sr_active_mod_pool[v.id] = true
-                sendDebugMessage('Added mod with id ' .. v.id .. ' to pool via core check')
             elseif SuperRogue_config.starting_mods[v.id] and v.can_load and not v.disabled then
                 ret.sr_active_mod_pool[v.id] = true
             elseif v.can_load and not v.disabled then
@@ -33,6 +32,7 @@ Game.init_game_object = function(self)
     ret.sr_activation_mode = SuperRogue_config.activation_mode
     ret.sr_trigger_type = SuperRogue_config.trigger_type
     ret.sr_choice_pool_blacklist = {}
+    ret.sr_boosters_in_shop = SuperRogue_config.boosters_in_shop
 
     return ret
 end

@@ -14,28 +14,6 @@ SuperRogue.config_tab = function()
         nodes = {
             { n = G.UIT.R, config = { align = "cl", padding = 0, minh = 0.1 }, nodes = {} },
 
-            -- Start with mod toggle
-            {
-                n = G.UIT.R,
-                config = { align = "cl", padding = 0 },
-                nodes = {
-                    {
-                        n = G.UIT.C,
-                        config = { align = "cl", padding = 0.05 },
-                        nodes = {
-                            create_toggle { col = true, label = "", scale = 1, w = 0, shadow = true, ref_table = SuperRogue_config, ref_value = "start_with_mod" },
-                        }
-                    },
-                    {
-                        n = G.UIT.C,
-                        config = { align = "c", padding = 0 },
-                        nodes = {
-                            { n = G.UIT.T, config = { text = localize('b_sr_start_with_mod'), scale = 0.45, colour = G.C.UI.TEXT_LIGHT } },
-                        }
-                    },
-                }
-            },
-
             -- Iterator Type Cycle
             {
                 n = G.UIT.R,
@@ -103,6 +81,50 @@ SuperRogue.config_tab = function()
                                 colour = G.C.RED,
                                 opt_callback = 'sr_cycle_update'
                             })
+                        }
+                    },
+                }
+            },
+
+            -- Start with mod toggle
+            {
+                n = G.UIT.R,
+                config = { align = "cl", padding = 0 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { align = "cl", padding = 0.05 },
+                        nodes = {
+                            create_toggle { col = true, label = "", scale = 1, w = 0, shadow = true, ref_table = SuperRogue_config, ref_value = "start_with_mod" },
+                        }
+                    },
+                    {
+                        n = G.UIT.C,
+                        config = { align = "c", padding = 0 },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = localize('b_sr_start_with_mod'), scale = 0.45, colour = G.C.UI.TEXT_LIGHT } },
+                        }
+                    },
+                }
+            },
+
+            -- Boosters in shop toggle
+            {
+                n = G.UIT.R,
+                config = { align = "cl", padding = 0 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { align = "cl", padding = 0.05 },
+                        nodes = {
+                            create_toggle { col = true, label = "", scale = 1, w = 0, shadow = true, ref_table = SuperRogue_config, ref_value = "boosters_in_shop" },
+                        }
+                    },
+                    {
+                        n = G.UIT.C,
+                        config = { align = "c", padding = 0 },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = localize('b_sr_boosters_in_shop'), scale = 0.45, colour = G.C.UI.TEXT_LIGHT } },
                         }
                     },
                 }
