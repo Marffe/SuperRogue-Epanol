@@ -14,14 +14,22 @@ SuperRogue.config_tab = function()
         nodes = {
             { n = G.UIT.R, config = { align = "cl", padding = 0, minh = 0.1 }, nodes = {} },
 
-            -- Iterator Type Cycle
+            {
+                n = G.UIT.R,
+                config = { align = "cm", padding = 0.25 },
+                nodes = {
+                    { n = G.UIT.T, config = { text = localize('b_sr_main_config_options'), scale = 0.75, colour = G.C.UI.TEXT_LIGHT } },
+                }
+            },
+
+            -- Cycles Row
             {
                 n = G.UIT.R,
                 config = { align = "cm", padding = 0 },
                 nodes = {
-                    {
+                    { -- Iterator Type Cycle
                         n = G.UIT.C,
-                        config = { align = "cm", padding = 0.05 },
+                        config = { align = "cm", padding = 0.1 },
                         nodes = {
                             create_option_cycle({
                                 label = localize('b_sr_trigger_type'),
@@ -35,17 +43,9 @@ SuperRogue.config_tab = function()
                             })
                         }
                     },
-                }
-            },
-
-            -- Activation Threashold Cycle
-            {
-                n = G.UIT.R,
-                config = { align = "cm", padding = 0 },
-                nodes = {
-                    {
+                    { -- Activation Threashold Cycle
                         n = G.UIT.C,
-                        config = { align = "cm", padding = 0.05 },
+                        config = { align = "cm", padding = 0.1 },
                         nodes = {
                             create_option_cycle({
                                 label = localize('b_sr_activation_threashold'),
@@ -59,17 +59,9 @@ SuperRogue.config_tab = function()
                             })
                         }
                     },
-                }
-            },
-
-            -- Activation Mode Cycle
-            {
-                n = G.UIT.R,
-                config = { align = "cm", padding = 0 },
-                nodes = {
-                    {
+                    { -- Activation Mode Cycle
                         n = G.UIT.C,
-                        config = { align = "cm", padding = 0.05 },
+                        config = { align = "cm", padding = 0.1 },
                         nodes = {
                             create_option_cycle({
                                 label = localize('b_sr_activation_mode'),
@@ -86,10 +78,20 @@ SuperRogue.config_tab = function()
                 }
             },
 
+            { n = G.UIT.R, config = { minh = 0.04, minw = 3.5, colour = G.C.L_BLACK } },
+
+            {
+                n = G.UIT.R,
+                config = { align = "cm", padding = 0.25 },
+                nodes = {
+                    { n = G.UIT.T, config = { text = localize('b_sr_optional_config_options'), scale = 0.6, colour = G.C.UI.TEXT_LIGHT } },
+                }
+            },
+
             -- Start with mod toggle
             {
                 n = G.UIT.R,
-                config = { align = "cl", padding = 0 },
+                config = { align = "cm", padding = 0 },
                 nodes = {
                     {
                         n = G.UIT.C,
@@ -111,7 +113,7 @@ SuperRogue.config_tab = function()
             -- Boosters in shop toggle
             {
                 n = G.UIT.R,
-                config = { align = "cl", padding = 0 },
+                config = { align = "cm", padding = 0 },
                 nodes = {
                     {
                         n = G.UIT.C,
@@ -130,6 +132,7 @@ SuperRogue.config_tab = function()
                 }
             },
 
+            { n = G.UIT.R, config = { align = "cl", padding = 0, minh = 0.1 }, nodes = {} }
         }
     }
 end
