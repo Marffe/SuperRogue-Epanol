@@ -1,7 +1,7 @@
 -- Prevent specific mod cards from spawning if not active in pool
 local satp = SMODS.add_to_pool
 function SMODS.add_to_pool(prototype_obj, args)
-    if prototype_obj.mod and not G.GAME.sr_active_mod_pool[prototype_obj.mod.id] then
+    if prototype_obj.original_mod and not G.GAME.sr_active_mod_pool[prototype_obj.original_mod.id] then
         return false
     end
     return satp(prototype_obj, args)
@@ -161,7 +161,7 @@ end
 local gfuc = G.FUNCS.use_card
 function G.FUNCS.use_card(e, mute, nosave)
     local obj = e.config.ref_table
-    if obj.ability.set == 'Booster' and obj.config.center.mod and not G.GAME.sr_active_mod_pool[obj.config.center.mod.id] then
+    if obj.ability.set == 'Booster' and obj.config.center.original_mod and not G.GAME.sr_active_mod_pool[obj.config.center.original_mod.id] then
         SMODS.calculate_effect(
             {
                 message = localize('k_sr_mod_not_active_ex'),
