@@ -94,7 +94,7 @@ _pool[#_pool+1] = SMODS.ObjectTypes[_type].default
 '''
 position = 'at'
 payload = '''
-if G.GAME.sr_active_mod_pool[SMODS.ObjectTypes[_type].original_mod.id] then
+if SuperRogue.is_object_mod_active(SMODS.ObjectTypes[_type]) then
     _pool[#_pool+1] = SMODS.ObjectTypes[_type].default
 end
 '''
