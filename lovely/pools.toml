@@ -49,7 +49,7 @@ end
 position = 'after'
 payload = '''
 for k, v in pairs(eligible_bosses) do
-    if G.P_BLINDS[k] and G.P_BLINDS[k].original_mod and not G.GAME.sr_active_mod_pool[G.P_BLINDS[k].original_mod.id] then eligible_bosses[k] = nil end
+    if G.P_BLINDS[k] and not SuperRogue.is_object_mod_active(G.P_BLINDS[k]) then eligible_bosses[k] = nil end
 end
 '''
 match_indent = true

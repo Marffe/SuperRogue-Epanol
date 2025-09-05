@@ -93,3 +93,12 @@ function SuperRogue.is_pool_available(_type)
     end
     return available_type
 end
+
+--Helper function to check if an object's mod is active (makes conditionals more concise)
+function SuperRogue.is_object_mod_active(obj_prototype)
+    if obj_prototype.original_mod then
+        return G.GAME.sr_active_mod_pool[obj_prototype.original_mod.id]
+    else
+        return true
+    end
+end
