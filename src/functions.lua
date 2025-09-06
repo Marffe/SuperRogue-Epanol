@@ -37,7 +37,7 @@ end
 function SuperRogue.activate_mod(key)
     if key and G.GAME.sr_active_mod_pool[key] ~= nil then
         G.GAME.sr_active_mod_pool[key] = true
-        local disp_text = (SMODS.Mods[key].display_name or SMODS.Mods[key].name) .. localize('k_sr_activation')
+        local disp_text = (SMODS.Mods[key].name) .. localize('k_sr_activation')
         local hold_time = G.SETTINGS.GAMESPEED * (#disp_text * 0.035 + 1.3)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
