@@ -40,6 +40,19 @@ end
 match_indent = true
 times = 2
 
+[[patches]] # Mythos shop slot compat
+[patches.pattern]
+target = 'game.lua'
+pattern = '''
+elseif G.GAME.ortalab.vouchers.mythos_shop_slot then
+'''
+position = 'at'
+payload = '''
+elseif G.GAME.ortalab.vouchers.mythos_shop_slot and G.GAME.sr_active_mod_list['ortalab'] then
+'''
+match_indent = true
+times = 1
+
 # Prism Compat
 [[patches]] # Pass ante_end into hook
 [patches.pattern]
