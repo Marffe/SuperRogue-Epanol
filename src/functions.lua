@@ -3,7 +3,7 @@ SuperRogue.calculate = function(self, context)
     if G.GAME.sr_trigger_type == 1 and context.ante_change and context.ante_end
         or G.GAME.sr_trigger_type == 2 and context.end_of_round and not context.repetition and not context.individual then
         G.GAME.sr_iteration_steps = G.GAME.sr_iteration_steps + 1
-        if G.GAME.sr_iteration_steps >= SuperRogue_config.activation_threashold and G.GAME.sr_activation_mode == 1 then
+        if G.GAME.sr_iteration_steps >= G.GAME.sr_activation_threashold and G.GAME.sr_activation_mode == 1 then
             SuperRogue.activate_mod(SuperRogue.get_rand_inactive())
             G.GAME.sr_iteration_steps = 0
         end
