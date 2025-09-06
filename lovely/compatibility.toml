@@ -1,0 +1,68 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Ortalab Compat
+[[patches]] # Pack spawn fix
+[patches.pattern]
+target = '''=[SMODS ortalab "objects/stakes.lua"]'''
+pattern = '''
+if v.in_pool and type(v.in_pool) == 'function' then 
+	local res, pool_opts = v:in_pool()
+	pool_opts = pool_opts or {}
+	add = res and (add or pool_opts.override_base_checks)
+end
+'''
+position = 'at'
+payload = '''
+local res, pool_opts = SMODS.add_to_pool(v)
+pool_opts = pool_opts or {}
+add = res and (add or pool_opts.override_base_checks)
+'''
+match_indent = true
+times = 1
+
+[[patches]] # Small and Big Blind pool manipulation
+[patches.pattern]
+target = '''=[SMODS ortalab "util/functions.lua"]'''
+pattern = '''
+for k, v in pairs(G.GAME.banned_keys) do
+    if eligible_bosses[k] then eligible_bosses[k] = nil end
+end
+'''
+position = 'after'
+payload = '''
+for k, v in pairs(eligible_bosses) do
+    if G.P_BLINDS[k] and not SuperRogue.is_object_mod_active(G.P_BLINDS[k]) then eligible_bosses[k] = nil end
+end
+'''
+match_indent = true
+times = 2
+
+# Prism Compat
+[[patches]] # Pass ante_end into hook
+[patches.pattern]
+target = '''=[SMODS Prism "objects/stakes.lua"'''
+pattern = '''
+function ease_ante(mod)
+'''
+position = 'at'
+payload = '''
+function ease_ante(mod, ante_end)
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS Prism "objects/stakes.lua"'''
+pattern = '''
+function ease_ante(mod)
+'''
+position = 'at'
+payload = '''
+orig_ease_ante(mod, ante_end)
+'''
+match_indent = true
+times = 1
