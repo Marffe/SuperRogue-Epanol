@@ -102,3 +102,42 @@ function SuperRogue.is_object_mod_active(obj_prototype)
         return true
     end
 end
+
+--Helper function to check if a mod has tangible content
+function SuperRogue.does_mod_have_content(id)
+    local center_pools = {
+        'Joker',
+        'Voucher',
+        'Enhanced',
+        'Seal',
+        'Edition',
+        'Booster'
+    }
+
+    -- Add all consumable types to center_pools
+    for _, key in ipairs(SMODS.ConsumableType.visible_buffer) do
+        center_pools[#center_pools + 1] = key
+    end
+
+    for _, pool in pairs(center_pools) do
+        for _, v in pairs(G.P_CENTER_POOLS[pool]) do
+            if v.mod and v.mod.id == id and not v.no_collection then
+                return true
+            end
+        end
+    end
+
+    for _, v in pairs(G.P_TAGS) do
+        if v.mod and v.mod.id == id and not v.no_collection then
+            return true
+        end
+    end
+
+    for _, v in pairs(G.P_BLINDS) do
+        if v.mod and v.mod.id == id and not v.no_collection then
+            return true
+        end
+    end
+
+    return false
+end

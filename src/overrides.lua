@@ -12,17 +12,26 @@ local igo = Game.init_game_object
 Game.init_game_object = function(self)
     local ret = igo(self)
 
+    SuperRogue.content_mods = {}
+
+    -- Check for content mods
+    for k, v in pairs(SMODS.Mods) do
+        if SuperRogue.does_mod_have_content(v.id) and not SuperRogue_config.core_mods[v.id] and not v.disabled and v.can_load then
+            SuperRogue.content_mods[v.id] = true
+        end
+    end
+
     ret.sr_active_mod_pool = {}
     -- Load Mod Pool
-    for k, v in pairs(SMODS.Mods) do
+    for k, v in pairs(SuperRogue.content_mods) do
         local blacklisted = SuperRogue_config.activation_blacklist[k]
         if not blacklisted and v then
-            if SuperRogue_config.core_mods[v.id] then
-                ret.sr_active_mod_pool[v.id] = true
-            elseif SuperRogue_config.starting_mods[v.id] and v.can_load and not v.disabled then
-                ret.sr_active_mod_pool[v.id] = true
-            elseif v.can_load and not v.disabled then
-                ret.sr_active_mod_pool[v.id] = false
+            if SuperRogue_config.core_mods[k] then
+                ret.sr_active_mod_pool[k] = true
+            elseif SuperRogue_config.starting_mods[k] then
+                ret.sr_active_mod_pool[k] = true
+            else
+                ret.sr_active_mod_pool[k] = false
             end
         end
     end

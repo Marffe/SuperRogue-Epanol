@@ -156,9 +156,9 @@ SMODS.current_mod.extra_tabs = function()
                 local mod_areas = {}
                 local mod_tables = {}
                 local mod_table_rows = {}
-                for k, v in pairs(SMODS.Mods) do
-                    if not SuperRogue_config.core_mods[v.id] and v.can_load and not v.disabled then
-                        keys_used[v.id] = v.id
+                for k, v in pairs(SuperRogue.content_mods) do
+                    if not SuperRogue_config.core_mods[k] then
+                        keys_used[k] = k
                     end
                 end
                 for k, v in pairs(keys_used) do
@@ -275,9 +275,9 @@ SMODS.current_mod.extra_tabs = function()
                 local mod_areas = {}
                 local mod_tables = {}
                 local mod_table_rows = {}
-                for k, v in pairs(SMODS.Mods) do
-                    if not SuperRogue_config.core_mods[v.id] and v.can_load and not v.disabled then
-                        keys_used[v.id] = v.id
+                for k, v in pairs(SuperRogue.content_mods) do
+                    if not SuperRogue_config.core_mods[k] then
+                        keys_used[k] = k
                     end
                 end
                 for k, v in pairs(keys_used) do
