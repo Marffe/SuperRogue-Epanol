@@ -28,6 +28,8 @@ function SuperRogue.get_rand_inactive()
             G.GAME.sr_choice_pool_blacklist[key] = key
         end
         return key
+    elseif next(G.GAME.sr_choice_pool_blacklist) then
+        return pseudorandom_element(G.GAME.sr_choice_pool_blacklist, pseudoseed('SRRandom'))
     else
         return nil
     end

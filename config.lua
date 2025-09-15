@@ -6,6 +6,8 @@ return {
     activation_mode = 1,
     starting_mods = {},
     activation_blacklist = {},
+    pack_size = 2,
+    pack_choices = 1,
     core_mods = { -- DO NOT TOUCH THIS UNLESS YOU ABSOLUTELY KNOW WHAT YOU ARE DOING
         ["Balatro"] = true,
         ["Lovely"] = true,

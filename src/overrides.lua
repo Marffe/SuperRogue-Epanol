@@ -46,6 +46,9 @@ Game.init_game_object = function(self)
     ret.sr_choice_pool_blacklist = {}
     ret.sr_boosters_in_shop = SuperRogue_config.boosters_in_shop
 
+    G.P_CENTERS['p_sr_mod_booster'].config.extra = SuperRogue_config.pack_size
+    G.P_CENTERS['p_sr_mod_booster'].config.choose = SuperRogue_config.pack_choices
+
     return ret
 end
 

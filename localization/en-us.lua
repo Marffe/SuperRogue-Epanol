@@ -25,6 +25,8 @@ return {
             b_sr_rounds_until_next_mod = 'Rounds until next mod: ',
             b_sr_main_config_options = 'Main Config Options',
             b_sr_optional_config_options = 'Optional Config Options',
+            b_sr_pack_size = 'Pack Size',
+            b_sr_pack_choices = 'Pack Choices',
 
             k_mod_consumable = 'Mod',
             k_sr_activation = ' has been activated!',
@@ -52,6 +54,15 @@ return {
             sr_trigger_type_desc = {
                 "Choose what trigger to",
                 "use for mod activation"
+            },
+
+            sr_pack_size_desc = {
+                "Choose how many mods can",
+                "appear in a Mod Pack"
+            },
+            sr_pack_choices_desc = {
+                "Choose how many mods can",
+                "be activated in a Mod Pack"
             },
 
             

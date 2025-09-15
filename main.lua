@@ -78,6 +78,45 @@ SuperRogue.config_tab = function()
                 }
             },
 
+            {
+                n = G.UIT.R,
+                config = { align = "cm", padding = 0 },
+                nodes = {
+                    { -- Pack Size Cycle
+                        n = G.UIT.C,
+                        config = { align = "cm", padding = 0.1 },
+                        nodes = {
+                            create_option_cycle({
+                                label = localize('b_sr_pack_size'),
+                                current_option = SuperRogue_config.pack_size,
+                                options = { 2, 3, 4, 5, 6, 7, 8 },
+                                ref_table = SuperRogue_config,
+                                ref_value = 'pack_size',
+                                info = localize('sr_pack_size_desc'),
+                                colour = G.C.RED,
+                                opt_callback = 'sr_cycle_update'
+                            })
+                        }
+                    },
+                    { -- Pack Choices Cycle
+                        n = G.UIT.C,
+                        config = { align = "cm", padding = 0.1 },
+                        nodes = {
+                            create_option_cycle({
+                                label = localize('b_sr_pack_choices'),
+                                current_option = SuperRogue_config.pack_choices,
+                                options = { 1, 2, 3, 4, 5, 6, 7, 8 },
+                                ref_table = SuperRogue_config,
+                                ref_value = 'pack_choices',
+                                info = localize('sr_pack_choices_desc'),
+                                colour = G.C.RED,
+                                opt_callback = 'sr_cycle_update'
+                            })
+                        }
+                    },
+                }
+            },
+
             { n = G.UIT.R, config = { minh = 0.04, minw = 3.5, colour = G.C.L_BLACK } },
 
             {
