@@ -22,13 +22,16 @@ Game.init_game_object = function(self)
     end
 
     ret.sr_active_mod_pool = {}
+    -- Force core mods into mod pool
+    for k, _ in pairs(SuperRogue_config.core_mods) do
+        ret.sr_active_mod_pool[k] = true
+    end
+
     -- Load Mod Pool
     for k, v in pairs(SuperRogue.content_mods) do
         local blacklisted = SuperRogue_config.activation_blacklist[k]
         if not blacklisted and v then
-            if SuperRogue_config.core_mods[k] then
-                ret.sr_active_mod_pool[k] = true
-            elseif SuperRogue_config.starting_mods[k] then
+            if SuperRogue_config.starting_mods[k] then
                 ret.sr_active_mod_pool[k] = true
             else
                 ret.sr_active_mod_pool[k] = false
