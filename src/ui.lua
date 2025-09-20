@@ -102,13 +102,12 @@ function G.UIDEF.sr_activated_mods()
         { n = G.UIT.R, config = { align = "cm", padding = 0, no_fill = true }, nodes = mod_tables }
     )
 
-    local tracking_string
-    if SuperRogue.get_total_inactive() <= 0 then
-        tracking_string = localize('k_sr_no_mods_left')
-    elseif G.GAME.sr_activation_mode == 1 then
-        tracking_string = localize('k_sr_antes_until_next_mod') .. G.GAME.sr_activation_threashold - G.GAME.sr_iteration_steps
+    local tracking_string = localize('k_sr_no_mods_left')
+    local steps_to_activation = G.GAME.sr_activation_threashold - G.GAME.sr_iteration_steps
+    if G.GAME.sr_activation_mode == 1 then
+        tracking_string = localize{type = 'variable', key = 'k_sr_rounds_until_next_mod', vars = {steps_to_activation}}
     elseif G.GAME.sr_activation_mode == 2 then
-        tracking_string = localize('k_sr_rounds_until_next_mod') .. G.GAME.sr_activation_threashold - G.GAME.sr_iteration_steps
+        tracking_string = localize{type = 'variable', key = 'k_sr_antes_until_next_mod', vars = {steps_to_activation}}
     end
 
     local t = silent and {

@@ -21,8 +21,6 @@ return {
             b_sr_start_with_mod = 'Start run with a mod being activated',
             b_sr_starting_mods = 'Starting Mods',
             b_sr_trigger_type = 'Trigger Type',
-            b_sr_antes_until_next_mod = 'Antes until next mod: ',
-            b_sr_rounds_until_next_mod = 'Rounds until next mod: ',
             b_sr_main_config_options = 'Main Config Options',
             b_sr_optional_config_options = 'Optional Config Options',
             b_sr_pack_size = 'Pack Size',
@@ -75,6 +73,10 @@ return {
                 "Round"
             },
             
+        },
+        v_dictionary = {
+            k_sr_antes_until_next_mod = 'Antes until next mod: #1#',
+            k_sr_rounds_until_next_mod = 'Rounds until next mod: #1#',
         }
     }
 }
