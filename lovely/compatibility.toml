@@ -110,3 +110,30 @@ end
 '''
 match_indent = true
 times = 1
+
+# All In Jest compat
+[[patches]] # Pass ante_end into hook
+[patches.pattern]
+target = '''=[SMODS allinjest "Items/Jokers/stultor.lua"]'''
+pattern = '''
+function ease_ante(mod)
+'''
+position = 'at'
+payload = '''
+function ease_ante(mod, ante_end)
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS allinjest "Items/Jokers/stultor.lua"]'''
+pattern = '''
+local ref = ease_anteref(mod)
+'''
+position = 'at'
+payload = '''
+local ref = ease_anteref(mod, ante_end)
+'''
+match_indent = true
+times = 1
