@@ -39,6 +39,18 @@ Game.init_game_object = function(self)
         end
     end
 
+    if SuperRogue_config.rand_starting - 1 > 0 then
+        for i = 1, SuperRogue_config.rand_starting - 1 do
+            local valid_mods = {}
+            for k, v in pairs(ret.sr_active_mod_pool) do
+                if not v then
+                    valid_mods[#valid_mods + 1] = k
+                end
+            end
+            ret.sr_active_mod_pool[pseudorandom_element(valid_mods)] = true
+        end
+    end
+
     ret.sr_iteration_steps = 0
     ret.sr_activation_threashold = SuperRogue_config.activation_threashold
     ret.sr_activation_mode = SuperRogue_config.activation_mode

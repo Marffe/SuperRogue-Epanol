@@ -12,7 +12,7 @@ SuperRogue.config_tab = function()
         n = G.UIT.ROOT,
         config = { align = "m", r = 0.1, padding = 0.1, colour = G.C.BLACK, minw = 8, minh = 6 },
         nodes = {
-            { n = G.UIT.R, config = { align = "cl", padding = 0, minh = 0.1 }, nodes = {} },
+            { n = G.UIT.R, config = { align = "cl", padding = 0, minh = 0.1 },        nodes = {} },
 
             {
                 n = G.UIT.R,
@@ -314,9 +314,11 @@ SMODS.current_mod.extra_tabs = function()
                 local mod_areas = {}
                 local mod_tables = {}
                 local mod_table_rows = {}
+                local rand_starting_options = { 0 }
                 for k, v in pairs(SuperRogue.content_mods) do
                     if not SuperRogue_config.core_mods[k] then
                         keys_used[k] = k
+                        rand_starting_options[#rand_starting_options + 1] = #rand_starting_options
                     end
                 end
                 for k, v in pairs(keys_used) do
@@ -406,7 +408,32 @@ SMODS.current_mod.extra_tabs = function()
                                 nodes = {
                                     { n = G.UIT.R, config = { align = "cm" }, nodes = mod_table_rows },
                                 }
-                            }
+                            },
+
+                            { n = G.UIT.R, config = { minh = 0.04, minw = 3.5, colour = G.C.L_BLACK } },
+
+                            {
+                                n = G.UIT.R,
+                                config = { align = "cm", padding = 0 },
+                                nodes = {
+                                    { -- Random Starting Mods cycle
+                                        n = G.UIT.C,
+                                        config = { align = "cm", padding = 0.1 },
+                                        nodes = {
+                                            create_option_cycle({
+                                                label = localize('b_sr_rand_starting'),
+                                                current_option = SuperRogue_config.rand_starting,
+                                                options = rand_starting_options,
+                                                ref_table = SuperRogue_config,
+                                                ref_value = 'rand_starting',
+                                                info = localize('sr_rand_starting_desc'),
+                                                colour = G.C.RED,
+                                                opt_callback = 'sr_cycle_update'
+                                            })
+                                        }
+                                    },
+                                }
+                            },
                         }
                     } or
                     {

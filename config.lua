@@ -5,6 +5,7 @@ return {
     activation_threashold = 1,
     activation_mode = 1,
     starting_mods = {},
+    rand_starting = 0,
     activation_blacklist = {},
     pack_size = 2,
     pack_choices = 1,

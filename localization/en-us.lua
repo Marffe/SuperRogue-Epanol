@@ -25,6 +25,7 @@ return {
             b_sr_optional_config_options = 'Optional Config Options',
             b_sr_pack_size = 'Pack Size',
             b_sr_pack_choices = 'Pack Choices',
+            b_sr_rand_starting = 'Random Starting Mods',
 
             k_mod_consumable = 'Mod',
             k_sr_activation = ' has been activated!',
@@ -40,7 +41,7 @@ return {
             ph_sr_no_mods_left = 'No mods left to activate',
             ph_sr_no_mods_run = 'No mods activated this run',
 
-            
+
             sr_activation_mode_desc = {
                 "Choose what method of mod",
                 "activation should be used"
@@ -61,6 +62,11 @@ return {
             sr_pack_choices_desc = {
                 "Choose how many mods can",
                 "be activated in a Mod Pack"
+            },
+            sr_rand_starting_desc = {
+                "The number of mods that",
+                "will be randomly active at",
+                "the start of a run"
             },
 
             
