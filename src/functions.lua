@@ -36,28 +36,30 @@ function SuperRogue.get_rand_inactive()
 end
 
 -- Helper function to activate mod
-function SuperRogue.activate_mod(key)
+function SuperRogue.activate_mod(key, silent)
     if key and G.GAME.sr_active_mod_pool[key] ~= nil then
         G.GAME.sr_active_mod_pool[key] = true
-        local disp_text = (SMODS.Mods[key].name) .. localize('k_sr_activation')
-        local hold_time = G.SETTINGS.GAMESPEED * (#disp_text * 0.035 + 1.3)
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            blockable = false,
-            func = function()
-                play_sound('whoosh1', 0.55, 0.62)
-                attention_text({
-                    scale = 0.7,
-                    text = disp_text,
-                    maxw = 12,
-                    hold = hold_time,
-                    align = 'cm',
-                    offset = { x = 0, y = -1 },
-                    major = G.play
-                })
-                return true;
-            end
-        }))
+        if not silent then
+            local disp_text = (SMODS.Mods[key].name) .. localize('k_sr_activation')
+            local hold_time = G.SETTINGS.GAMESPEED * (#disp_text * 0.035 + 1.3)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                blockable = false,
+                func = function()
+                    play_sound('whoosh1', 0.55, 0.62)
+                    attention_text({
+                        scale = 0.7,
+                        text = disp_text,
+                        maxw = 12,
+                        hold = hold_time,
+                        align = 'cm',
+                        offset = { x = 0, y = -1 },
+                        major = G.play
+                    })
+                    return true;
+                end
+            }))
+        end
     end
 end
 
@@ -83,7 +85,7 @@ function SuperRogue.get_total_inactive()
     return inactive_mods
 end
 
---Helper function to check if anm object pool has any available objects
+--Helper function to check if an object pool has any available objects
 function SuperRogue.is_pool_available(_type)
     local available_type = false
     local _type_pool = get_current_pool(_type)
