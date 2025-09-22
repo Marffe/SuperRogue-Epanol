@@ -18,7 +18,7 @@ return {
             b_sr_blacklist = 'Blacklist',
             b_sr_boosters_in_shop = 'Allow Mod Packs to appear in shops',
             b_sr_mods = 'Mods',
-            b_sr_start_with_mod = 'Start run with a mod being activated',
+            b_sr_start_with_mod = 'Start run with a mod being activated through chosen mode',
             b_sr_starting_mods = 'Starting Mods',
             b_sr_trigger_type = 'Trigger Type',
             b_sr_main_config_options = 'Main Config Options',
@@ -33,10 +33,10 @@ return {
             k_sr_mod_not_active_ex = 'Mod Not Active!',
 
             ph_sr_crossed_blacklist = '(Crossed out mods will not appear in run)',
-            ph_sr_crossed_starting = '(Crossed out mods will not be activated at start)',
+            ph_sr_crossed_starting = '(Crossed out mods will not be active at start)',
             ph_sr_mods_activated = 'Mods activated this run',
             ph_sr_mods_blacklist = 'Mod Blacklist',
-            ph_sr_mods_starting = 'Mods Activated at Start',
+            ph_sr_mods_starting = 'Mods Active at Start',
             ph_sr_no_mods_available = 'No mods available to use with SuperRogue',
             ph_sr_no_mods_left = 'No mods left to activate',
             ph_sr_no_mods_run = 'No mods activated this run',
@@ -64,9 +64,8 @@ return {
                 "be activated in a Mod Pack"
             },
             sr_rand_starting_desc = {
-                "The number of mods that",
-                "will be randomly active at",
-                "the start of a run"
+                "The number of mods that will be randomly",
+                "active at the start of a run",
             },
 
             
