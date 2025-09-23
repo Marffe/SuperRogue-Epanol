@@ -116,3 +116,17 @@ end
 '''
 match_indent = true
 times = 1
+
+#Fallback key for Seals pool
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+elseif _type == 'Edition' then _pool[#_pool + 1] = "e_foil"
+'''
+position = 'after'
+payload = '''
+elseif _type == 'Seal' then _pool[#_pool + 1] = "Purple"
+'''
+match_indent = true
+times = 1
