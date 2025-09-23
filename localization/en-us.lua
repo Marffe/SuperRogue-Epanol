@@ -79,8 +79,9 @@ return {
                 "Round"
             },
             sr_config_pages = {
-                "Page 1/2",
-                "Page 2/2"
+                "Page 1/3",
+                "Page 2/3",
+                "Page 3/3"
             },
             
         },

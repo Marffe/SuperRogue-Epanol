@@ -140,7 +140,7 @@ SuperRogue.config_tab = function()
             }
         }
     }
-    
+
     config_pages[2] = {
         n = G.UIT.ROOT,
         config = { align = "m", r = 0.1, padding = 0.1, colour = G.C.BLACK, minw = 8, minh = 6 },
@@ -375,7 +375,32 @@ SuperRogue.config_tab = function()
                 }
             },
 
-            { n = G.UIT.R, config = { minh = 0.04, minw = 3.5, colour = G.C.L_BLACK } },
+            { n = G.UIT.R, config = { align = "cl", padding = 0, minh = 0.1 }, nodes = {} },
+
+            {
+                n = G.UIT.R,
+                config = { align = "cm", padding = 0, minh = 0.1 },
+                nodes = {
+                    create_option_cycle({
+                        options = localize('sr_config_pages'),
+                        w = 4.5,
+                        cycle_shoulders = true,
+                        opt_callback = "sr_set_config_page",
+                        current_option = G.SUPERROGUE_CONFIG_PAGE or 1,
+                        colour = G.C.GREEN,
+                        no_pips = true,
+                        focus_args = { snap_to = true, nav = "wide" },
+                    }),
+                },
+            }
+        }
+    }
+
+    config_pages[3] = {
+        n = G.UIT.ROOT,
+        config = { align = "m", r = 0.1, padding = 0.1, colour = G.C.BLACK, minw = 8, minh = 6 },
+        nodes = {
+            { n = G.UIT.R, config = { align = "cl", padding = 0, minh = 0.1 },        nodes = {} },
 
             {
                 n = G.UIT.R,
