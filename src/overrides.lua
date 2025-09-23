@@ -40,16 +40,17 @@ Game.init_game_object = function(self)
         end
     end
 
-    local valid_mods = {}
-    for k, v in pairs(ret.sr_active_mod_pool) do
-        if not v then
-            valid_mods[#valid_mods + 1] = k
-        end
-    end
-
-    if SuperRogue_config.rand_starting - 1 > 0 and next(valid_mods) then
+    if SuperRogue_config.rand_starting - 1 > 0 then
         for i = 1, SuperRogue_config.rand_starting - 1 do
-            ret.sr_active_mod_pool[pseudorandom_element(valid_mods)] = true
+            local valid_mods = {}
+            for k, v in pairs(ret.sr_active_mod_pool) do
+                if not v then
+                    valid_mods[#valid_mods + 1] = k
+                end
+            end
+            if next(valid_mods) then
+                ret.sr_active_mod_pool[pseudorandom_element(valid_mods)] = true
+            end
         end
     end
 
