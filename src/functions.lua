@@ -104,19 +104,19 @@ function SuperRogue.is_object_mod_active(obj_prototype, args)
         return G.GAME.sr_active_mod_pool[obj_prototype.original_mod.id]
     else
         if args and args.type then
-            if args.type == 'Joker' and SuperRogue_config.vanilla_blacklist.jokers then
+            if args.type == 'Joker' and G.GAME.sr_vanilla_blacklist.jokers then
                 return false
             end
-            if args.type == 'Voucher' and SuperRogue_config.vanilla_blacklist.vouchers then
+            if args.type == 'Voucher' and G.GAME.sr_vanilla_blacklist.vouchers then
                 return false
             end
-            if args.type == 'Planet' and SuperRogue_config.vanilla_blacklist.planets then
+            if args.type == 'Planet' and G.GAME.sr_vanilla_blacklist.planets then
                 return false
             end
-            if args.type == 'Tarot' and SuperRogue_config.vanilla_blacklist.tarots then
+            if args.type == 'Tarot' and G.GAME.sr_vanilla_blacklist.tarots then
                 return false
             end
-            if args.type == 'Spectral' and SuperRogue_config.vanilla_blacklist.spectrals then
+            if args.type == 'Spectral' and G.GAME.sr_vanilla_blacklist.spectrals then
                 return false
             end
             if args.type == 'Booster' then
@@ -131,19 +131,19 @@ function SuperRogue.is_object_mod_active(obj_prototype, args)
                 end
                 return false
             end
-            if args.type == 'Enhanced' and SuperRogue_config.vanilla_blacklist.enhancements then
+            if args.type == 'Enhanced' and G.GAME.sr_vanilla_blacklist.enhancements then
                 return false
             end
-            if args.type == 'Edition' and SuperRogue_config.vanilla_blacklist.editions then
+            if args.type == 'Edition' and G.GAME.sr_vanilla_blacklist.editions then
                 return false
             end
-            if args.type == 'Tag' and SuperRogue_config.vanilla_blacklist.tags then
+            if args.type == 'Tag' and G.GAME.sr_vanilla_blacklist.tags then
                 return false
             end
-            if args.type == 'Seal' and SuperRogue_config.vanilla_blacklist.seals then
+            if args.type == 'Seal' and G.GAME.sr_vanilla_blacklist.seals then
                 return false
             end
-            if args.type == 'Boss' and SuperRogue_config.vanilla_blacklist.blinds then
+            if args.type == 'Boss' and G.GAME.sr_vanilla_blacklist.blinds then
                 return false
             end
         end
