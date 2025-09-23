@@ -1,9 +1,10 @@
 -- Prevent specific mod cards from spawning if not active in pool
 local satp = SMODS.add_to_pool
 function SMODS.add_to_pool(prototype_obj, args)
-    if not SuperRogue.is_object_mod_active(prototype_obj) then
+    if not SuperRogue.is_object_mod_active(prototype_obj, args) then
         return false
     end
+
     return satp(prototype_obj, args)
 end
 

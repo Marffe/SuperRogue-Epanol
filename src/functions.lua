@@ -99,10 +99,55 @@ function SuperRogue.is_pool_available(_type)
 end
 
 --Helper function to check if an object's mod is active (makes conditionals more concise)
-function SuperRogue.is_object_mod_active(obj_prototype)
+function SuperRogue.is_object_mod_active(obj_prototype, args)
     if obj_prototype.original_mod then
         return G.GAME.sr_active_mod_pool[obj_prototype.original_mod.id]
     else
+        if args and args.type then
+            if args.type == 'Joker' and SuperRogue_config.vanilla_blacklist.jokers then
+                return false
+            end
+            if args.type == 'Voucher' and SuperRogue_config.vanilla_blacklist.vouchers then
+                return false
+            end
+            if args.type == 'Planet' and SuperRogue_config.vanilla_blacklist.planets then
+                return false
+            end
+            if args.type == 'Tarot' and SuperRogue_config.vanilla_blacklist.tarots then
+                return false
+            end
+            if args.type == 'Spectral' and SuperRogue_config.vanilla_blacklist.spectrals then
+                return false
+            end
+            if args.type == 'Booster' then
+                if obj_prototype.config.kind == 'Celestial' then
+                    return SuperRogue.is_pool_available('Planet')
+                elseif obj_prototype.config.kind == 'Arcana' then
+                    return SuperRogue.is_pool_available('Tarot')
+                elseif obj_prototype.config.kind == 'Spectral' then
+                    return SuperRogue.is_pool_available('Spectral')
+                elseif obj_prototype.config.kind == 'Buffoon' then
+                    return SuperRogue.is_pool_available('Joker')
+                end
+                return false
+            end
+            if args.type == 'Enhanced' and SuperRogue_config.vanilla_blacklist.enhancements then
+                return false
+            end
+            if args.type == 'Edition' and SuperRogue_config.vanilla_blacklist.editions then
+                return false
+            end
+            if args.type == 'Tag' and SuperRogue_config.vanilla_blacklist.tags then
+                return false
+            end
+            if args.type == 'Seal' and SuperRogue_config.vanilla_blacklist.seals then
+                return false
+            end
+            if args.type == 'Boss' and SuperRogue_config.vanilla_blacklist.blinds then
+                return false
+            end
+        end
+
         return true
     end
 end

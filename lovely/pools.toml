@@ -8,6 +8,18 @@ priority = 1
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = '''
+local in_pool, pool_opts = SMODS.add_to_pool(v, { source = _append })
+'''
+position = 'at'
+payload = '''
+local in_pool, pool_opts = SMODS.add_to_pool(v, { source = _append, type = _type })
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
 if v.in_pool and type(v.in_pool) == 'function' then
     add = in_pool and (add or pool_opts.override_base_checks)
 end
@@ -18,6 +30,7 @@ add = in_pool and (add or pool_opts.override_base_checks)
 '''
 match_indent = true
 
+# Patch for boosters
 [[patches]]
 [patches.pattern]
 target = '''=[SMODS _ "src/overrides.lua"]'''
@@ -30,7 +43,7 @@ end
 '''
 position = 'at'
 payload = '''
-local res, pool_opts = SMODS.add_to_pool(v)
+local res, pool_opts = SMODS.add_to_pool(v, {type = 'Booster'})
 pool_opts = pool_opts or {}
 add = res and (add or pool_opts.override_base_checks)
 '''
@@ -49,7 +62,10 @@ end
 position = 'after'
 payload = '''
 for k, v in pairs(eligible_bosses) do
-    if G.P_BLINDS[k] and not SuperRogue.is_object_mod_active(G.P_BLINDS[k]) then eligible_bosses[k] = nil end
+    if G.P_BLINDS[k] and not SuperRogue.is_object_mod_active(G.P_BLINDS[k], {type = 'Boss'}) then eligible_bosses[k] = nil end
+end
+if not next(eligible_bosses) then
+    eligible_bosses['bl_manacle'] = true
 end
 '''
 match_indent = true
