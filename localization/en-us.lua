@@ -15,7 +15,7 @@ return {
         dictionary = {
             b_sr_activation_mode = 'Mod Activation Mode',
             b_sr_activation_threashold = 'Trigger Count',
-            b_sr_blacklist = 'Blacklist',
+            b_sr_blacklist = 'Mod Blacklist',
             b_sr_boosters_in_shop = 'Allow Mod Packs to appear in shops',
             b_sr_mods = 'Mods',
             b_sr_start_with_mod = 'Start run with a mod being activated through chosen mode',
@@ -69,7 +69,7 @@ return {
                 "active at the start of a run",
             },
 
-            
+
             sr_activation_mode_options = {
                 "Random",
                 "Choose"
@@ -83,7 +83,7 @@ return {
                 "Page 2/3",
                 "Page 3/3"
             },
-            
+
         },
         v_dictionary = {
             k_sr_antes_until_next_mod = 'Antes until next mod: #1#',
