@@ -9,6 +9,18 @@ return {
     activation_blacklist = {},
     pack_size = 2,
     pack_choices = 1,
+    vanilla_blacklist =  {
+        jokers = false,
+        vouchers = false,
+        tarots = false,
+        planets = false,
+        spectrals = false,
+        enhancements = false,
+        seals = false,
+        editions = false,
+        tags = false,
+        blinds = false
+    },
     core_mods = { -- DO NOT TOUCH THIS UNLESS YOU ABSOLUTELY KNOW WHAT YOU ARE DOING
         ["Balatro"] = true,
         ["Lovely"] = true,

@@ -26,6 +26,7 @@ return {
             b_sr_pack_size = 'Pack Size',
             b_sr_pack_choices = 'Pack Choices',
             b_sr_rand_starting = 'Random Starting Mods',
+            b_sr_vanilla_obj_bl = 'Vanilla Object Blacklist',
 
             k_mod_consumable = 'Mod',
             k_sr_activation = ' has been activated!',
@@ -76,6 +77,10 @@ return {
             sr_trigger_type_options = {
                 "Ante",
                 "Round"
+            },
+            sr_config_pages = {
+                "Page 1/2",
+                "Page 2/2"
             },
             
         },
