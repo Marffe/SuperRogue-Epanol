@@ -406,7 +406,7 @@ SuperRogue.config_tab = function()
                 n = G.UIT.R,
                 config = { align = "cm", padding = 0.25 },
                 nodes = {
-                    { n = G.UIT.T, config = { text = localize('b_sr_optional_config_options'), scale = 0.6, colour = G.C.UI.TEXT_LIGHT } },
+                    { n = G.UIT.T, config = { text = localize('b_sr_optional_config_options'), scale = 0.75, colour = G.C.UI.TEXT_LIGHT } },
                 }
             },
 
