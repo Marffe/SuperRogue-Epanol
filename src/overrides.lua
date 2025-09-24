@@ -10,17 +10,9 @@ function get_current_pool(_type, _rarity, _legendary, _append)
 
             if G.P_CENTERS[key] and not SuperRogue.is_object_mod_active(G.P_CENTERS[key], _type) then
                 _pool[i] = 'UNAVAILABLE'
-            else
-                _pool_size = _pool_size + 1
-            end
-
-            if G.P_SEALS[key] and not SuperRogue.is_object_mod_active(G.P_CENTERS[key], _type) then
+            elseif G.P_SEALS[key] and not SuperRogue.is_object_mod_active(G.P_SEALS[key], _type) then
                 _pool[i] = 'UNAVAILABLE'
-            else
-                _pool_size = _pool_size + 1
-            end
-
-            if G.P_TAGS[key] and not SuperRogue.is_object_mod_active(G.P_CENTERS[key], _type) then
+            elseif G.P_TAGS[key] and not SuperRogue.is_object_mod_active(G.P_TAGS[key], _type) then
                 _pool[i] = 'UNAVAILABLE'
             else
                 _pool_size = _pool_size + 1
