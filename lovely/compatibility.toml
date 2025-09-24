@@ -4,25 +4,6 @@ dump_lua = true
 priority = 1
 
 # Ortalab Compat
-[[patches]] # Pack spawn fix
-[patches.pattern]
-target = '''=[SMODS ortalab "objects/stakes.lua"]'''
-pattern = '''
-if v.in_pool and type(v.in_pool) == 'function' then 
-	local res, pool_opts = v:in_pool()
-	pool_opts = pool_opts or {}
-	add = res and (add or pool_opts.override_base_checks)
-end
-'''
-position = 'at'
-payload = '''
-local res, pool_opts = SMODS.add_to_pool(v)
-pool_opts = pool_opts or {}
-add = res and (add or pool_opts.override_base_checks)
-'''
-match_indent = true
-times = 1
-
 [[patches]] # Small and Big Blind pool manipulation
 [patches.pattern]
 target = '''=[SMODS ortalab "util/functions.lua"]'''
@@ -34,7 +15,10 @@ end
 position = 'after'
 payload = '''
 for k, v in pairs(eligible_bosses) do
-    if G.P_BLINDS[k] and not SuperRogue.is_object_mod_active(G.P_BLINDS[k]) then eligible_bosses[k] = nil end
+    if G.P_BLINDS[k] and not SuperRogue.is_object_mod_active(G.P_BLINDS[k], {type = 'Boss'}) then eligible_bosses[k] = nil end
+end
+if not next(eligible_bosses) then
+    eligible_bosses['bl_manacle'] = true
 end
 '''
 match_indent = true

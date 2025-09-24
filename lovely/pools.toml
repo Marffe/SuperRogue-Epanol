@@ -3,54 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Fix add_to_pool hook not working
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''
-local in_pool, pool_opts = SMODS.add_to_pool(v, { source = _append })
-'''
-position = 'at'
-payload = '''
-local in_pool, pool_opts = SMODS.add_to_pool(v, { source = _append, type = _type })
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''
-if v.in_pool and type(v.in_pool) == 'function' then
-    add = in_pool and (add or pool_opts.override_base_checks)
-end
-'''
-position = 'at'
-payload = '''
-add = in_pool and (add or pool_opts.override_base_checks)
-'''
-match_indent = true
-
-# Patch for boosters
-[[patches]]
-[patches.pattern]
-target = '''=[SMODS _ "src/overrides.lua"]'''
-pattern = '''
-if v.in_pool and type(v.in_pool) == 'function' then
-	local res, pool_opts = SMODS.add_to_pool(v)
-	pool_opts = pool_opts or {}
-	add = res and (add or pool_opts.override_base_checks)
-end
-'''
-position = 'at'
-payload = '''
-local res, pool_opts = SMODS.add_to_pool(v, {type = 'Booster'})
-pool_opts = pool_opts or {}
-add = res and (add or pool_opts.override_base_checks)
-'''
-match_indent = true
-times = 1
-
-# Prevent boss blinds from disabled mods from spawning (Weirder than the other ones for some reason)
+# Prevent boss blinds from disabled mods from spawning (Doesn't use get_current_pool hook)
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -113,20 +66,6 @@ payload = '''
 if SuperRogue.is_object_mod_active(SMODS.ObjectTypes[_type]) then
     _pool[#_pool+1] = SMODS.ObjectTypes[_type].default
 end
-'''
-match_indent = true
-times = 1
-
-#Fallback key for Seals pool
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''
-elseif _type == 'Edition' then _pool[#_pool + 1] = "e_foil"
-'''
-position = 'after'
-payload = '''
-elseif _type == 'Seal' then _pool[#_pool + 1] = "Purple"
 '''
 match_indent = true
 times = 1
