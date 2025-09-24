@@ -24,6 +24,22 @@ end
 match_indent = true
 times = 1
 
+# Prevent boosters from disabled mods from spawning (Doesn't use get_current_pool hook)
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/overrides.lua"]'''
+pattern = '''
+if add and not G.GAME.banned_keys[v.key] then cume = cume + (v.current_weight or 1); temp_in_pool[v.key] = true end
+'''
+position = 'before'
+payload = '''
+if add then
+    add = SuperRogue.is_object_mod_active(v, {type = 'Booster'})
+end
+'''
+match_indent = true
+times = 1
+
 # Prevent shop from attempting to generate cards from unavailable pools
 [[patches]]
 [patches.pattern]
