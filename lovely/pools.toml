@@ -14,11 +14,19 @@ end
 '''
 position = 'after'
 payload = '''
+local original_pool = eligible_bosses
+local added_via_check = false
 for k, v in pairs(eligible_bosses) do
-    if G.P_BLINDS[k] and not SuperRogue.is_object_mod_active(G.P_BLINDS[k], {type = 'Boss'}) then eligible_bosses[k] = nil end
+    if G.P_BLINDS[k] then
+        if not SuperRogue.is_object_mod_active(G.P_BLINDS[k], {type = 'Boss'}) then 
+            eligible_bosses[k] = nil
+        else
+            added_via_check = true
+        end
+    end
 end
-if not next(eligible_bosses) then
-    eligible_bosses['bl_manacle'] = true
+if not added_via_check then
+    eligible_bosses = original_pool
 end
 '''
 match_indent = true
