@@ -120,13 +120,13 @@ function SuperRogue.is_object_mod_active(obj_prototype, args)
                 return false
             end
             if args.type == 'Booster' then
-                if obj_prototype.config.kind == 'Celestial' then
+                if obj_prototype.kind == 'Celestial' then
                     return SuperRogue.is_pool_available('Planet')
-                elseif obj_prototype.config.kind == 'Arcana' then
+                elseif obj_prototype.kind == 'Arcana' then
                     return SuperRogue.is_pool_available('Tarot')
-                elseif obj_prototype.config.kind == 'Spectral' then
+                elseif obj_prototype.kind == 'Spectral' then
                     return SuperRogue.is_pool_available('Spectral')
-                elseif obj_prototype.config.kind == 'Buffoon' then
+                elseif obj_prototype.kind == 'Buffoon' then
                     return SuperRogue.is_pool_available('Joker')
                 end
                 return false
